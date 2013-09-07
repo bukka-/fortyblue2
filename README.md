@@ -7,6 +7,7 @@ Features:
 -Timetable
 -The line
 -Reminders
+-Test
 
 ==========
 
