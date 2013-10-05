@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>fortyblue</title>
+
+		<script src="./bower_components/angular/angular.min.js"></script>
+		<script src="app.js"></script>
+		<script src="./bower_components/jquery/jquery.min.js"></script>
+		<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+		
+		<link rel="stylesheet" href="./css/main.css">
+
+		<script>
+			$(document).ready(function(){
+				$("[rel=tooltip]").tooltip({ placement: 'right'});
+			});
+		</script>
+
+		<link rel="shortcut icon" href="favicon.ico" />
+	</head>
+
+	<body ng-app="myApp">
+
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="nav-logo" href="#">Brand</a>
+				</div>
+
+				<div class="btn-group" ng-controller="DropdownCtrl">
+					<button type="button" class="btn btn-default dropdown-toggle dropdown-timetable" data-toggle="dropdown">
+						{{display}} <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu timetable-select" role="menu">
+
+						<li ng-repeat="choice in items">
+							<a ng-click="select(choice)">{{choice}}</a>
+						</li>
+						<li class="divider"></li>
+						<li><a href="#">Add Custom</a></li>
+					</ul>
+				</div>
+
+				<p class="navbar-text pull-right">Signed in as <a href="#" class="navbar-link">bukka</a></p>
+			</div>
+		</nav>
+
+	<div class="container">
+
+			<span class="time-until-text">Time until next lesson</span>
+			<span class="time-until">02:42</span>
+			<span class="glyphicon glyphicon-time remind-me" rel="tooltip" title="Set Reminder"></span>
+			<table class="table table-bordered table-hover timetable">
+					<thead>
+						<tr>
+							<th>Time</th>
+							<th>Monday</th>
+							<th>Tuesday</th>
+							<th class="today">Wednesday</th>
+							<th>Thrusday</th>
+							<th>Friday</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="timeline-fill"></tr>
+						<tr class="timeline"></tr>
+						<tr>
+							<td>08:00 - 08:45</td>
+							<td></td>
+							<td>Bosnian</td>
+							<td>English</td>
+							<td>Bosnian</td>
+							<td>English</td>
+						</tr>
+						<tr>
+							<td>08:50 - 09:35</td>
+							<td>Math</td>
+							<td>Bosnian</td>
+							<td>English</td>
+							<td>Bosnian</td>
+							<td>English</td>
+						</tr>
+						<tr>
+							<td>09:40 - 10:25</td>
+							<td>Math</td>
+							<td>Economics HL</td>
+							<td>Math</td>
+							<td>Geography HL/SL</td>
+							<td>Psychology HL/SL</td>
+						</tr>
+						<tr>
+							<td>10:45 - 11:30</td>
+							<td>Bosnian</td>
+							<td>Economics HL</td>
+							<td>TOK</td>
+							<td>Physics</td>
+							<td>Physics</td>
+						</tr>
+						<tr>
+							<td>11:46 - 12:20</td>
+							<td>English</td>
+							<td>Physics</td>
+							<td>TOK</td>
+							<td>Physics</td>
+							<td>German SL/HL</td>
+						</tr>
+						<tr class="lunch">
+							<td>12:25 - 13:10</td>
+							<td>LUNCH</td>
+							<td>LUNCH</td>
+							<td>LUNCH</td>
+							<td>LUNCH</td>
+							<td>LUNCH</td>
+						</tr>
+						<tr>
+							<td>13:30 - 14:15</td>
+							<td>Psychology HL/SL</td>
+							<td>Physics</td>
+							<td>Economics HL/SL</td>
+							<td>B&amp;M</td>
+							<td>History HL/SL</td>
+						</tr>
+						<tr>
+							<td>14:20 - 15:05</td>
+							<td>B&amp;M</td>
+							<td>German SL/HL</td>
+							<td>Chemistry</td>
+							<td>B&amp;M</td>
+							<td>History HL/SL</td>
+						</tr>
+						<tr>
+							<td>15:10 - 15:55</td>
+							<td>B&amp;M</td>
+							<td>German SL/HL</td>
+							<td>Chemistry</td>
+							<td>ITGS</td>
+							<td>CS</td>
+						</tr>
+						<tr>
+							<td>16:15 - 17:00</td>
+							<td>ITGS</td>
+							<td>ITGS</td>
+							<td>CS</td>
+							<td>French</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>17:05 - 17:50</td>
+							<td>ITGS</td>
+							<td>ITGS</td>
+							<td>CS</td>
+							<td>CS</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>17:55 - 18:40</td>
+							<td>History SL/HL</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>18:45 - 19:30</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+		
+	</body>
+</html>

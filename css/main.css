@@ -1,0 +1,105 @@
+.nav-logo{
+	display: block;
+	text-indent: -999px;
+	background: url("../images/logo.png") center no-repeat;
+	width: 160px;
+	height: 50px;
+	background-size: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.dropdown-timetable{
+	background-color: #F8F8F8;
+	height: 50px;
+	width: 400px;
+
+	margin-left: 20px !important;
+	padding: 0px 30px;
+	text-align: left;
+
+	border: none;
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	border-radius: 0px;
+}
+
+.dropdown-timetable .caret{
+	float: right;
+	margin-top: 9px;
+}
+
+.timetable-select{
+	width: 100%;
+	margin-left: 20px;
+
+}
+
+.timetable-select li{
+	cursor: pointer;
+}
+
+
+.time-until-text{
+	display: block;
+}
+
+.time-until{
+	font-size:55px;
+}
+
+.remind-me{
+	font-size: 25px;
+	cursor: pointer;
+	text-shadow: 0px 0px 1px #000;
+}
+
+.timetable{
+	text-align: center;
+	position: relative;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.timetable th{
+	text-align: center;
+}
+
+.timetable tbody{
+	position: relative;
+}
+
+.lunch{
+	color:red;
+}
+
+.timeline{
+	position: absolute;
+	width: 100%;
+	height: 3px;
+	background-color: #0071BC;
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	margin-top: 39px;
+	top: 30%;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	border-top: 1px solid #69C3FF;
+	pointer-events: none;
+}
+
+.timeline-fill{
+	position: absolute;
+	width: 100%;
+	height: 30%;
+	background-color: rgba(0, 142, 236, 0.16);
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	top: 0;
+	margin-top: 39px;
+	pointer-events: none;
+}
+
+.today{
+	border-bottom-color:black;
+}
