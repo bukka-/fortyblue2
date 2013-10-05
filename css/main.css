@@ -100,6 +100,24 @@
 	pointer-events: none;
 }
 
+.timetable tr>th{
+	position: relative;
+	color: #7A7A7A;
+}
+
 .today{
-	border-bottom-color:black;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	left: 50%;
+	top: 0px;
+	margin-left: -4px;
+	border-bottom: none;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 8px solid #ddd;
+}
+
+.timetable th.today-select{
+	color: #353535;
 }
