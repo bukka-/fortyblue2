@@ -1,21 +1,25 @@
 fortyblue
 ==========
-
 Hobby project for school
 
-Features:
-<<<<<<< HEAD
-- Timetable
-- The line
-- Reminders
-=======
--Timetable
--The line
--Reminders
--Test
+A dynamic timetable for students. 
 
-==========
 
-https://www.codeship.io/projects/b00a00d0-f9fb-0130-92f9-522f8f9f2942/status
->>>>>>> parent of 82cb346... Basic Template Setup
+###Features
+
+* Display most recent timetable for selected class
+* Custom tasks, notes and reminders
+* Synchronize over all your devices
+* Custom timetables
+
+#Developers
+
+###Requierments
+
+* AngularJS
+* Twitter Bootstrap 3.0
+* jQuery
+
+
+
 
