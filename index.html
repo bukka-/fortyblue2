@@ -3,20 +3,34 @@
 	<head>
 		<title>calculatr</title>
 
-		<script type='text/javascript' src="./bower_components/jquery/jquery.min.js"></script>
-		<script type='text/javascript' src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<script type='text/javascript' src="./js/vendor/jquery.min.js"></script>
+		<script type='text/javascript' src="./js/vendor/jquery-ui.min.js"></script>
+		<script type='text/javascript' src="./js/vendor/handlebars.js"></script>
 		
-		<script type='text/javascript' src="./app/app.js"></script>
+		<script type='text/javascript' src="./js/main.js"></script>
 
 		<link rel="stylesheet" href="./css/main.css">
 
 		<link rel="shortcut icon" href="favicon.ico" />
+
+		<script id="te_pre-object" type="text/x-handlebars-template">
+			<span class="pre-object-container" id="pre{{object_id}}" style="top:{{topPos}}px; left:{{leftPos}}px">
+				<span class="pre-object"></span>
+			</span>
+		</script>		
+
+		<script id="te_object" type="text/x-handlebars-template">
+			<span class="object" id="{{object_id}}" style="top:{{topPos}}px; left:{{leftPos}}px" >
+				<span class="input-field" contenteditable="true"></span>
+				<span class="drag"></span>
+			</span>
+		</script>
+
 	</head>
 
 	<body>
 		<div class="objects">
-			
+
 		</div>
 		<div class="canvas">
 
