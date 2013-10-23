@@ -1,12 +1,16 @@
 $(document).ready(function() {
 
 	function Draggable() {
-		$('.object').draggable({handle: '.drag', containment: ".canvas"});
+		$('.object').draggable({handle: '.drag', containment: ".canvas", helper: 'none', opacity: '1', revert: false});
+	};	
+
+	function handleDraggable() {
+		$('.object').draggable({handle: '.handle', containment: ".canvas", helper: "clone", opacity: '0.7', revert: true});
 	};
 
 	function createObject(e) {
-		topPos = e.pageY - 10;
-		leftPos = e.pageX + 1;
+		topPos = e.pageY - 30;
+		leftPos = e.pageX ;
 
 		var source   = $("#te_object").html();
 		var element = Handlebars.compile(source);
@@ -23,7 +27,7 @@ $(document).ready(function() {
 	}
 
 	function preObject(e){
-		topPos = e.pageY - 10;
+		topPos = e.pageY - 15;
 		leftPos = e.pageX + 1;
 
 		var source   = $("#te_pre-object").html();
@@ -34,7 +38,7 @@ $(document).ready(function() {
 			leftPos: leftPos
 		};
 		$('.objects').append(element(data));
-		$('#pre'+object_id+' .pre-object').animate({'width': '80px'}, 400);
+		$('#pre'+object_id+' .pre-object').animate({'width': '94px'}, 400);
 	}
 
 	var object_id = 1;
@@ -62,7 +66,17 @@ $(document).ready(function() {
 		$(this).addClass('grabbing');
 	}).on('mouseup','.drag', function(){
 		$(this).removeClass('grabbing');
-	}); 
+	});
+
+	$('body').on('mouseover','.handle', function(){
+		handleDraggable();
+	}).on('mouseout','.handle', function(){
+		Draggable();
+	});
+
+	$('body').on('mouseover','.drag', function(){
+		Draggable();
+	});
 
 
 });
