@@ -56,7 +56,7 @@ body{
 
 	padding: 16px 0px;
 	line-height: 26px;
-	
+
 	outline: none;
 	display: block;
 }
@@ -76,6 +76,8 @@ body{
 
 	left: 0px;
 	bottom: 0px;
+
+	font-size: 7px;
 }
 
 .handle {
@@ -93,6 +95,11 @@ body{
 
 	left: 0px;
 	top: 0px;
+
+	font-size: 11px;
+	color: #C7CFDC;
+	letter-spacing: 1px;
+	line-height: 10px;
 }
 
 
