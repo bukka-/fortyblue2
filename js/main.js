@@ -1,12 +1,152 @@
 $(document).ready(function() {
+	function CanvasDroppable() {
+		$( ".canvas" ).droppable({
+			scope: 'handles',
+			accept: ".object",
+			tolerance: "touch",
+			drop: function( event, ui ) {
+				
+				task = $(ui.helper[0].children[1]).text();
+				
+				values = task.split('+');
+				result = 0;
+				for(i=0; i < values.length; i++){
+					result += parseInt(values[i], 10);
+					console.log('reslut: ' + result);
+				}
+				
+				$(ui.helper[0].children[1]).text(result);
+				$('.objects').append($(ui.helper).clone().addClass('ui-droppable result').css('opacity', '1'));
+				$(ui.helper).remove();
 
-	function Draggable() {
-		$('.object').draggable({handle: '.drag', containment: ".canvas", helper: 'none', opacity: '1', revert: false});
+				$('.result').draggable({
+					handle: '.drag', 
+					containment: ".canvas", 
+					helper: 'none', 
+					opacity: '1', 
+					revert: false,
+					scope: 'drag'
+				}).draggable({
+					handle: '.handle', 
+					containment: ".canvas", 
+					helper: "clone", 
+					opacity: '0.7', 
+					revert: true, 
+					scope: 'handles'
+				}).removeClass('result');
+
+				objectDroppable();
+				operatorDroppable();
+				removeCanvasDroppable();
+				removeObjectDroppable();
+				// console.log(clone);
+			}
+		});
+	}
+
+	function removeCanvasDroppable() {
+		$( ".canvas" ).droppable({accept: ".none"});
+	}
+
+	var holdTimerObject;
+	function objectDroppable() {
+		$( ".object" ).droppable({
+			scope: 'handles',
+			accept: ".object",
+			tolerance: "touch",
+			over: function( event, ui ) {
+				if (operator == true){
+
+					progress = '<span class="progress"></span>';
+					$(this).append(progress);
+					$('.progress').animate({'width': '100%'}, 500);
+
+					value_2 = $(this.children[1]).text();
+
+					holdTimerObject = setTimeout($.proxy( function(){
+						operator = false;
+
+						$('.progress').remove();						
+						value = $(ui.helper[0].children[1]).text();
+						value = value + value_2;
+						$(ui.helper[0].children[1]).text(value);
+
+						CanvasDroppable();
+					}), 500);	
+				}
+			},
+			out: function() {
+				$('.progress').remove();
+				clearTimeout(holdTimerObject);
+			}
+		});
+	}
+
+	function removeObjectDroppable() {
+		$( ".object" ).droppable({accept: ".none"});		
+	}
+	
+	var holdTimer;
+	function operatorDroppable() {
+		$( ".object-operator" ).droppable({
+			scope: 'handles',
+			accept: ".object",
+			activeClass: "ui-state-active",
+			hoverClass: "ui-state-hover",
+			tolerance: "touch",
+			over: function( event, ui) {
+				if (operator == false) {	
+					progress = '<span class="progress"></span>';
+					$(this).append(progress);
+					$('.progress').animate({'width': '90%'}, 500);
+					holdTimer = window.setTimeout(function() {
+						$('.progress').remove();
+						operator = true;
+						objectDroppable();
+						value = $(ui.helper[0].children[1]).text();
+						value = value + ' + ';
+						$(ui.helper[0].children[1]).text(value);
+					}, 500);			
+				};
+			},
+			drop: function( event, ui ) {
+
+			},
+			out: function(){
+				$('.progress').remove();
+				clearTimeout(holdTimer);
+			}
+		});
+	}
+
+	function objectDraggable() {
+		$('.object').draggable({
+			handle: '.drag', 
+			containment: ".canvas", 
+			helper: 'none', 
+			opacity: '1', 
+			revert: false,
+			scope: 'drag'
+		});
+
+		operatorDroppable();
 	};	
 
 	function handleDraggable() {
-		$('.object').draggable({handle: '.handle', containment: ".canvas", helper: "clone", opacity: '0.7', revert: true});
+		objectDroppable();
+		$('.object').draggable({
+			handle: '.handle', 
+			containment: ".canvas", 
+			helper: "clone", 
+			opacity: '0.7', 
+			revert: true, 
+			scope: 'handles',
+			start: function() {
+				operator = false;
+			}
+		});
 	};
+
 
 	function createObject(e) {
 		topPos = e.pageY - 30;
@@ -22,7 +162,7 @@ $(document).ready(function() {
 
 		$('.objects').append(element(data));
 		$('#'+object_id+' .input-field').focus();
-		Draggable();
+		objectDraggable();
 		object_id++;
 	}
 
@@ -71,11 +211,7 @@ $(document).ready(function() {
 	$('body').on('mouseover','.handle', function(){
 		handleDraggable();
 	}).on('mouseout','.handle', function(){
-		Draggable();
-	});
-
-	$('body').on('mouseover','.drag', function(){
-		Draggable();
+		objectDraggable();
 	});
 
 
