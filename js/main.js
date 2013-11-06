@@ -119,6 +119,15 @@ $(document).ready(function() {
 		});
 	}
 
+	function operatorDraggable() {
+		console.log("initiated");
+		$('.object-operator').draggable({
+			containment: ".canvas"
+		});
+	}
+
+	operatorDraggable();
+
 	function objectDraggable() {
 		$('.object').draggable({
 			handle: '.drag', 
