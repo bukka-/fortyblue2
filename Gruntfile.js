@@ -6,8 +6,8 @@ module.exports = function (grunt) {
 
 		concat:{
 			js:{
-				src: ['app/app.js','app/controllers/**/*.js','app/directives/**/*.js'],
-				dest: 'dev/app.js'
+				src: ['js/vendor/jquery.min.js','js/vendor/*.js','js/**/*.js'],
+				dest: 'dev/main.js'
 			}
 		},
 

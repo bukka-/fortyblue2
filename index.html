@@ -3,10 +3,7 @@
 	<head>
 		<title>sixtylime</title>
 
-		<script src="./bower_components/jquery/jquery.min.js"></script>
-		<script src="./bower_components/angular/angular.min.js"></script>		
-		<script src="./bower_components/angular-route/angular-route.min.js"></script>
-		<script src="./dev/app.js"></script>
+		<script src="./dev/main.js"></script>
 		<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
 		
@@ -21,7 +18,7 @@
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 
-	<body ng-app="myApp">
+	<body>
 
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container">
@@ -29,14 +26,14 @@
 					<a class="nav-logo" href="#">Brand</a>
 				</div>
 
-				<div class="btn-group" ng-controller="DropdownCtrl">
+				<div class="btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle dropdown-timetable" data-toggle="dropdown">
-						{{display}} <span class="caret"></span>
+						Test <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu timetable-select" role="menu">
 
-						<li ng-repeat="choice in items">
-							<a ng-click="select(choice)">{{choice}}</a>
+						<li>
+							<a>Test</a>
 						</li>
 						<li class="divider"></li>
 						<li><a href="#">Add Custom</a></li>
@@ -58,12 +55,27 @@
 				Notifications
 			</div>
 		</div>
-		
-		<div ng-view></div>
 
-
-		<div id="container" ng-controller="ContentCtrl">
-		    <content-item ng-repeat="item in content" content="item"></content-item>
+		<div class="timetable_container">
+			<table class="table table-bordered table-hover timetable">
+				<thead>
+					<tr>
+						<th>Time</th>
+						<th>Monday</th>
+						<th>Wednesday</th>
+						<th>Tuesday</th>
+						<th>Thrusday</th>
+						<th>Friday</th>
+<!-- 						<th>sat</th>
+						<th>sun</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="timeline-fill"></tr>
+					<tr class="timeline"></tr>
+					<!-- Subjects will be inserted here -->
+				</tbody>
+			</table>
 		</div>
 
 	</div>

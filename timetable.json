@@ -1,5 +1,100 @@
 [
-    {"content_type" : "image", "title" : "Image 00", "data" : "lolol"},
-    {"content_type" : "video", "title" : "Video 00", "data" : "lol"},
-    {"content_type" : "notes", "title" : "Notes 00", "data" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+	{
+		"time":{
+			"1" : "08:00 - 08:45", 
+			"2" : "08:50 - 09:35",
+			"3" : "09:40 - 10:25",
+			"4" : "10:45 - 11:30",
+			"5" : "11:35 - 12:20",
+			"6" : "12:25 - 13:10",
+			"7" : "13:30 - 14:15",
+			"8" : "14:20 - 15:05",
+			"9" : "15:10 - 15:55",
+			"10" : "16:15 - 17:00",
+			"11" : "17:05 - 17:50",
+			"12" : "17:55 - 18:40",
+			"13" : "18:45 - 19:30"
+		},
+		"monday":{
+			"1" : "",
+			"2" : "Math",
+			"3" : "Math",
+			"4" : "Bosnian",
+			"5" : "English",
+			"6" : "LUNCH",
+			"7" : "Psychology",
+			"8" : "B&M",
+			"9" : "B&M",
+			"10" : "ITGS",
+			"11" : "ITGS",
+			"12" : "History",
+			"13" : ""
+		},
+		"tuesday":{
+			"1" : "Bosnian",
+			"2" : "Bosnian",
+			"3" : "Economics",
+			"4" : "Economics",
+			"5" : "Physics",
+			"6" : "LUNCH",
+			"7" : "Physics",
+			"8" : "German",
+			"9" : "German",
+			"10" : "ITGS",
+			"11" : "ITGS",
+			"12" : "",
+			"13" : ""
+		},
+		"wednesday":{
+			"1" : "English",
+			"2" : "English",
+			"3" : "Math",
+			"4" : "TOK",
+			"5" : "TOK",
+			"6" : "LUNCH",
+			"7" : "Economics",
+			"8" : "Chemistry",
+			"9" : "Chemistry",
+			"10" : "CS",
+			"11" : "CS",
+			"12" : "",
+			"13" : ""
+		},
+		"thursday":{
+			"1" : "Bosnian",
+			"2" : "Bosnian",
+			"3" : "Geography",
+			"4" : "Physics",
+			"5" : "Physics",
+			"6" : "LUNCH",
+			"7" : "B&M",
+			"8" : "B&M",
+			"9" : "ITGS",
+			"10" : "French",
+			"11" : "CS",
+			"12" : "",
+			"13" : ""
+		},
+		"friday":{
+			"1" : "English",
+			"2" : "English",
+			"3" : "Psychology",
+			"4" : "Physics",
+			"5" : "German",
+			"6" : "LUNCH",
+			"7" : "History",
+			"8" : "History",
+			"9" : "CS",
+			"10" : "",
+			"11" : "",
+			"12" : "",
+			"13" : ""
+		},
+		"settings":{
+			"mini-break": "5",
+			"break": "20",
+			"breaks": "3",
+			"class_duration": "45"
+		}
+	}
 ]
