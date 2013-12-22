@@ -16,79 +16,274 @@
 			"13" : "18:45 - 19:30"
 		},
 		"monday":{
-			"1" : "",
-			"2" : "Math",
-			"3" : "Math",
-			"4" : "Bosnian",
-			"5" : "English",
-			"6" : "LUNCH",
-			"7" : "Psychology",
-			"8" : "B&M",
-			"9" : "B&M",
-			"10" : "ITGS",
-			"11" : "ITGS",
-			"12" : "History",
-			"13" : ""
+			"1" :{
+				"first":"",
+				"second":"11x"
+			},
+			"2" :{
+				"first":"3",
+				"second":"7;12x"
+			},
+			"3" :{
+				"first":"3",
+				"second":"7;12x"
+			},
+			"4" :{
+				"first":"2",
+				"second":"6;9x"
+			},
+			"5" :{
+				"first":"1",
+				"second":"6;9x"
+			},
+			"6" :{
+				"first": "42",
+				"second": "42"
+			},
+			"7" :{
+				"first":"5x",
+				"second":"3"
+			},
+			"8" :{
+				"first":"6;9x",
+				"second":"3"
+			},
+			"9" :{
+				"first":"6;9x",
+				"second":"17"
+			},
+			"10" :{
+				"first":"7;12x",
+				"second":"17"
+			},
+			"11" :{
+				"first":"7;12x",
+				"second":""
+			},
+			"12" :{
+				"first":"11x",
+				"second":""
+			},
+			"13" :{
+				"first":"",
+				"second":""
+			}
 		},
 		"tuesday":{
-			"1" : "Bosnian",
-			"2" : "Bosnian",
-			"3" : "Economics",
-			"4" : "Economics",
-			"5" : "Physics",
-			"6" : "LUNCH",
-			"7" : "Physics",
-			"8" : "German",
-			"9" : "German",
-			"10" : "ITGS",
-			"11" : "ITGS",
-			"12" : "",
-			"13" : ""
+			"1" :{
+				"first":"2",
+				"second":"2"
+			},
+			"2" :{
+				"first":"2",
+				"second":"2"
+			},
+			"3" :{
+				"first":"9h;13h",
+				"second":"1"
+			},
+			"4" :{
+				"first":"9h;13h",
+				"second":"1"
+			},
+			"5" :{
+				"first":"5;14x",
+				"second":"1"
+			},
+			"6" :{
+				"first":"42",
+				"second":"42"
+			},
+			"7" :{
+				"first":"5;14x",
+				"second":"1"
+			},
+			"8" :{
+				"first":"15x;16",
+				"second":"1"
+			},
+			"9" :{
+				"first":"15x;16",
+				"second":"1"
+			},
+			"10" :{
+				"first":"7;12x",
+				"second":"1"
+			},
+			"11" :{
+				"first":"7;12x",
+				"second":"1"
+			},
+			"12" :{
+				"first":"1",
+				"second":"1"
+			},
+			"13" :{
+				"first":"1",
+				"second":"1"
+			}
 		},
 		"wednesday":{
-			"1" : "English",
-			"2" : "English",
-			"3" : "Math",
-			"4" : "TOK",
-			"5" : "TOK",
-			"6" : "LUNCH",
-			"7" : "Economics",
-			"8" : "Chemistry",
-			"9" : "Chemistry",
-			"10" : "CS",
-			"11" : "CS",
-			"12" : "",
-			"13" : ""
+			"1" :{
+				"first":"1",
+				"second":"1"
+			},
+			"2" :{
+				"first":"1",
+				"second":"1"
+			},
+			"3" :{
+				"first":"1",
+				"second":"1"
+			},
+			"4" :{
+				"first":"1",
+				"second":"1"
+			},
+			"5" :{
+				"first":"1",
+				"second":"1"
+			},
+			"6" :{
+				"first":"42",
+				"second":"42"
+			},
+			"7" :{
+				"first":"1",
+				"second":"1"
+			},
+			"8" :{
+				"first":"1",
+				"second":"1"
+			},
+			"9" :{
+				"first":"1",
+				"second":"1"
+			},
+			"10" :{
+				"first":"1",
+				"second":"1"
+			},
+			"11" :{
+				"first":"1",
+				"second":"1"
+			},
+			"12" :{
+				"first":"1",
+				"second":"1"
+			},
+			"13" :{
+				"first":"1",
+				"second":"1"
+			}
 		},
 		"thursday":{
-			"1" : "Bosnian",
-			"2" : "Bosnian",
-			"3" : "Geography",
-			"4" : "Physics",
-			"5" : "Physics",
-			"6" : "LUNCH",
-			"7" : "B&M",
-			"8" : "B&M",
-			"9" : "ITGS",
-			"10" : "French",
-			"11" : "CS",
-			"12" : "",
-			"13" : ""
+			"1" :{
+				"first":"1",
+				"second":"1"
+			},
+			"2" :{
+				"first":"1",
+				"second":"1"
+			},
+			"3" :{
+				"first":"1",
+				"second":"1"
+			},
+			"4" :{
+				"first":"1",
+				"second":"1"
+			},
+			"5" :{
+				"first":"1",
+				"second":"1"
+			},
+			"6" :{
+				"first":"42",
+				"second":"42"
+			},
+			"7" :{
+				"first":"1",
+				"second":"1"
+			},
+			"8" :{
+				"first":"1",
+				"second":"1"
+			},
+			"9" :{
+				"first":"1",
+				"second":"1"
+			},
+			"10" :{
+				"first":"1",
+				"second":"1"
+			},
+			"11" :{
+				"first":"1",
+				"second":"1"
+			},
+			"12" :{
+				"first":"1",
+				"second":"1"
+			},
+			"13" :{
+				"first":"1",
+				"second":"1"
+			}
 		},
 		"friday":{
-			"1" : "English",
-			"2" : "English",
-			"3" : "Psychology",
-			"4" : "Physics",
-			"5" : "German",
-			"6" : "LUNCH",
-			"7" : "History",
-			"8" : "History",
-			"9" : "CS",
-			"10" : "",
-			"11" : "",
-			"12" : "",
-			"13" : ""
+			"1" :{
+				"first":"1",
+				"second":"1"
+			},
+			"2" :{
+				"first":"1",
+				"second":"1"
+			},
+			"3" :{
+				"first":"1",
+				"second":"1"
+			},
+			"4" :{
+				"first":"1",
+				"second":"1"
+			},
+			"5" :{
+				"first":"1",
+				"second":"1"
+			},
+			"6" :{
+				"first":"42",
+				"second":"42"
+			},
+			"7" :{
+				"first":"1",
+				"second":"1"
+			},
+			"8" :{
+				"first":"1",
+				"second":"1"
+			},
+			"9" :{
+				"first":"1",
+				"second":"1"
+			},
+			"10" :{
+				"first":"1",
+				"second":"1"
+			},
+			"11" :{
+				"first":"1",
+				"second":"1"
+			},
+			"12" :{
+				"first":"1",
+				"second":"1"
+			},
+			"13" :{
+				"first":"1",
+				"second":"1"
+			}
 		},
 		"settings":{
 			"mini-break": "5",
