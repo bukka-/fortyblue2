@@ -1,19 +1,21 @@
 $(document).ready(function(){
 
+	$("[rel=tooltip]").tooltip({ placement: 'right'});
+
 
 	// Read and display data from JSON
 	var timetable_data = {};
 	var timetable_settings = {};
 	var subject_ids = {};
 
-	$.getJSON("./subjects.json", function(json_data) {
+	$.getJSON("./data/subjects.json", function(json_data) {
 		subject_ids = json_data[0];
 		getTimetable();
 
 	});
 
 	function getTimetable(){
-		$.getJSON("./timetable.json", function(json) {
+		$.getJSON("./data/timetable.json", function(json) {
 
 			// Save data to JS object for later use
 			timetable_data = json[0];
@@ -155,5 +157,14 @@ $(document).ready(function(){
 		// Re-init the function each minute
     	setTimeout(timetableInit, 60000);
 	}
+
+	console.log('test2');
+	$('#log-in').click(function(){
+		if($('.user_log_in').hasClass('open')){
+			$('.user_log_in').slideUp(200).removeClass('open');
+		}else{
+			$('.user_log_in').slideDown(200).addClass('open');
+		}
+	});
 
 });

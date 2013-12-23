@@ -29,6 +29,14 @@
 	margin-top: 9px;
 }
 
+.user_log_in{
+	display: none;
+}
+
+nav .btn-group{
+	float: left;
+}
+
 .timetable-select{
 	width: 100%;
 	margin-left: 20px;
