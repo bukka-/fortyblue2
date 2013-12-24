@@ -318,9 +318,10 @@ $(document).ready(function(){
 		var today = new Date();
 
 		// Determine the day
-		var day = ((today.getDay() + 6) %7)+1;
+		var day = ((today.getDay() + 6) %7)+2;
+		console.log(day);
 		var day_indicator = '<span class="today"></span>';
-		$('.timetable_container thead>tr>th:nth-child('+day+1+')').addClass('today-select').append(day_indicator);
+		$('.timetable_container thead>tr>th:nth-child('+day+')').addClass('today-select').append(day_indicator);
 
 		// Datermine the time
 		var seconds = today.getSeconds();
@@ -358,7 +359,6 @@ $(document).ready(function(){
     	setTimeout(timetableInit, 60000);
 	}
 
-	console.log('test2');
 	$('#log-in').click(function(){
 		if($('.user_log_in').hasClass('open')){
 			$('.user_log_in').slideUp(200).removeClass('open');

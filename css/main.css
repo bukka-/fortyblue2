@@ -1,3 +1,14 @@
+a {
+color: #3AB83A;
+text-decoration: none;
+}
+
+a:hover {
+color: #2D992D;
+text-decoration: none;
+}
+
+
 .nav-logo{
 	display: block;
 	text-indent: -999px;
@@ -31,10 +42,15 @@
 
 .user_log_in{
 	display: none;
+	margin: 10px 0px;
 }
 
 nav .btn-group{
 	float: left;
+}
+
+nav .navbar-text{
+	margin: 8px;
 }
 
 .timetable-select{
@@ -137,4 +153,9 @@ td.break{
 
 .timetable th.today-select{
 	color: #353535;
+}
+
+
+footer {
+	margin: 20px 0px;
 }

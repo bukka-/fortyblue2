@@ -14,9 +14,6 @@
 	</head>
 
 	<body>
-	<?
-	include('./user/index.php');
-	?>
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -39,11 +36,11 @@
 			<?
 			if ($login->isUserLoggedIn() == true) {
 			?>
-				<p class="navbar-text pull-right">Hi <? echo $_SESSION['user_name'];?>';! <a class="navbar-link" href="/user/index.php?logout">Logout</a></p>
+				<p class="navbar-text pull-right">Hi <a href="/user/<? echo $_SESSION['user_name'];?>"><? echo $_SESSION['user_name'];?></a>! <a class="btn btn-default" href="/new_login.php?logout">Logout</a></p>
 			<?
 			} else{
 			?>
-				<p class="navbar-text pull-right">Hello Guest! <a href="#" id="log-in" class="navbar-link">Log In</a> or <a href="/register" class="navbar-link">Register</a></p>
+				<p class="navbar-text pull-right">Hello Guest! <a href="#" id="log-in" class="navbar-link">Log In</a> or <a href="/register" class="btn btn-success">Register</a></p>
 			<?
 			}
 			?>
@@ -51,4 +48,14 @@
 		</nav>
 
 	<div class="container">
+
+		<? if(count($login->errors)>0) echo '<div class="alert alert-danger">'.$login->errors[0].'</div>'; ?>
+
+		<div class="row user_log_in">
+			<?
+				if ($login->isUserLoggedIn() == false) {
+					include('./view/login.php');
+				}
+			?>
+		</div>
 

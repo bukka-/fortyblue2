@@ -55,6 +55,15 @@ class Registration
         }
     }
 
+    public function checkUser($username){
+        $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $query_check_user_name = $db_connection->query("SELECT * FROM users WHERE user_name = '" . $username . "';");
+
+        if ($query_check_user_name->num_rows == 1) {
+          return true;
+        }
+    }
+
     /**
      * handles the entire registration process. checks all error possibilities, and creates a new user in the database if
      * everything is fine
@@ -123,6 +132,7 @@ class Registration
                     if ($query_new_user_insert) {
                         $this->messages[] = "Your account has been created successfully. You can now log in.";
                         $this->registration_successful = true;
+                        header('Location: /');
                     } else {
                         $this->errors[] = "Sorry, your registration failed. Please go back and try again.";
                     }

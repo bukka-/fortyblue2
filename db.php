@@ -17,7 +17,7 @@ define("DB_HOST", "127.0.0.1");
 /**
  * name of the database. please note: database and database table are not the same thing!
  */
-define("DB_NAME", "login");
+define("DB_NAME", "sixtylime");
 
 /**
  * user for your database. the user needs to have rights for SELECT, UPDATE, DELETE and INSERT.
@@ -30,3 +30,10 @@ define("DB_USER", "root");
  * The password of the above user
  */
 define("DB_PASS", "vrcko787");
+
+
+// Cookie 
+
+define('COOKIE_RUNTIME', 1209600); // 1209600 seconds = 2 weeks
+define('COOKIE_DOMAIN', '.127.0.0.1'); // the domain where the cookie is valid for, like '.mydomain.com'
+define('COOKIE_SECRET_KEY', 'lololololol'); // use to salt cookie content and when changed, can invalidate all databases users cookies
