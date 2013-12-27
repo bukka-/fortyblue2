@@ -44,6 +44,11 @@ if($page == "home"){
 	controller_user_setup();
 }else if($page == "new_subject"){
 	controller_new_subject();
+}else if($page == "subject_list"){
+	controller_subject_list();
+}else if($page == "subject_edit" && strtolower($URI_parts[2])!=""){
+	$subject = intval(strtolower($URI_parts[2]))-1;
+	controller_subject_edit($subject);
 }else{
 	$page = "home";
 	controller_home();
@@ -100,6 +105,22 @@ function controller_new_subject(){
 	include('model/Subject.php');
 	$subject = new Subject($login);
 	include('view/new_subject.php');
+}
+
+function controller_subject_list(){
+	global $login;
+	include('view/header.php');
+	include('model/Subject.php');
+	$subject = new Subject($login);
+	include('view/subject_list.php');
+}
+
+function controller_subject_edit($subject_edit_id){
+	global $login;
+	include('view/header.php');
+	include('model/Subject.php');
+	$subject = new Subject($login);
+	include('view/subject_edit.php');
 }
 
 include('view/footer.php');

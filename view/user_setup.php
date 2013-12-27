@@ -12,9 +12,7 @@
 
 	$subjects = $subject->getSubjects();
 	if($subjects){
-		$subject_id = 2;
-		$subject_name = 0;
-		$subject_name_short = 1;
+
 
 		for($i=0; $i<count($subjects); $i++){
 			if($i%4 == 0) echo '<div class="row">';
