@@ -20,7 +20,7 @@
 					<a class="nav-logo" href="/">Brand</a>
 				</div>
 
-				<div class="btn-group">
+				<div class="btn-group nav-dropdown">
 					<button type="button" class="btn btn-default dropdown-toggle dropdown-timetable" data-toggle="dropdown">
 						Test <span class="caret"></span>
 					</button>
@@ -36,11 +36,11 @@
 			<?
 			if ($login->isUserLoggedIn() == true) {
 			?>
-				<p class="navbar-text pull-right">Hi <a href="/user/<? echo $_SESSION['user_name'];?>"><? echo $_SESSION['user_name'];?></a>! <a class="btn btn-default" href="/new_login.php?logout">Logout</a></p>
+				<p class="navbar-text pull-right user_nav">Hi <a href="/user/<? echo $_SESSION['user_name'];?>"><? echo $_SESSION['user_name'];?></a>! <a class="btn btn-default" href="/new_login.php?logout">Logout</a></p>
 			<?
 			} else{
 			?>
-				<p class="navbar-text pull-right">Hello Guest! <a href="#" id="log-in" class="navbar-link">Log In</a> or <a href="/register" class="btn btn-success">Register</a></p>
+				<p class="navbar-text pull-right user_nav">Hello Guest! <a href="#" id="log-in" class="navbar-link">Log In</a> or <a href="/register" class="btn btn-success">Register</a></p>
 			<?
 			}
 			?>
@@ -49,7 +49,21 @@
 
 	<div class="container">
 
-		<? if(count($login->errors)>0) echo '<div class="alert alert-danger">'.$login->errors[0].'</div>'; ?>
+		<? 
+			if(count($login->errors)>0){
+				for($i=0;$i<count($login->errors);$i++){
+					echo '<div class="alert alert-danger">'.$login->errors[$i].'</div>'; 
+				}
+			} 
+		?>
+
+		<? if(count($login->messages)>0){
+			for($i=0;$i<count($login->messages);$i++){
+				echo '<div class="alert alert-danger">'.$login->messages[$i].'</div>'; 
+			}
+		} 
+		
+		?>
 
 		<div class="row user_log_in">
 			<?

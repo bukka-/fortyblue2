@@ -118,8 +118,6 @@ $(document).ready(function(){
 		var today = new Date();
 
 		// Determine the day
-		var day = ((today.getDay() + 6) %7)+2;
-		console.log(day);
 		var day_indicator = '<span class="today"></span>';
 		$('.timetable_container thead>tr>th:nth-child('+day+')').addClass('today-select').append(day_indicator);
 

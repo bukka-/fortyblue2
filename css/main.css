@@ -18,14 +18,18 @@ text-decoration: none;
 	background-size: 100%;
 	margin: 0px;
 	padding: 0px;
+	margin-right: 20px;
+}
+
+.nav-dropdown{
+	width: 50%;
 }
 
 .dropdown-timetable{
 	background-color: #F8F8F8;
 	height: 50px;
-	width: 400px;
+	width: 100%;
 
-	margin-left: 20px !important;
 	padding: 0px 30px;
 	text-align: left;
 
@@ -158,4 +162,29 @@ td.break{
 
 footer {
 	margin: 20px 0px;
+}
+
+
+@media (max-width: 768px){
+	
+
+	.container .navbar-header{
+		margin: 0px auto;
+		width: 160px;
+	}
+	.nav-dropdown{
+		margin: 0px;
+		padding: 0px;
+		border-top: 1px solid rgb(204, 204, 204);
+		width: 100%;
+	}
+
+	.timetable-select{
+		margin-left: 0px;
+	}
+
+	.user_nav{
+		display: none;
+	}
+
 }
