@@ -24,17 +24,8 @@ class Registration
 	public function __construct($login)
 	{
 		if (isset($_POST["register"])) {
-			$login->doLogout();
+			// $login->doLogout();
 			$this->registerNewUser();
-		}
-	}
-
-	public function checkUser($username){
-		$db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		$query_check_user_name = $db_connection->query("SELECT * FROM users WHERE user_name = '" . $username . "';");
-
-		if ($query_check_user_name->num_rows == 1) {
-		  return true;
 		}
 	}
 
@@ -88,24 +79,24 @@ class Registration
 				$query_check_user_name = $this->db_connection->query("SELECT * FROM users WHERE user_name = '" . $this->user_name . "';");
 
 				if ($query_check_user_name->num_rows == 1) {
-					$this->errors[] = "Sorry, that user name is already taken. Please choose another one.";
+					echo "<span class='alert alert-danger'>Sorry, that user name is already taken. Please choose another one.</span>";
 				} else {
 					// write new users data into database
-					$query_new_user_insert = $this->db_connection->query("INSERT INTO users (user_name, user_password_hash, user_email) VALUES('" . $this->user_name . "', '" . $this->user_password_hash . "', '" . $this->user_email . "');");
+					$query_new_user_insert = $this->db_connection->query("INSERT INTO users (user_name, user_password_hash, user_email, user_registration_ip, user_registration_datetime) VALUES('" . $this->user_name . "', '" . $this->user_password_hash . "', '" . $this->user_email . "', '".$_SERVER['REMOTE_ADDR']."', now())");
 
 					if ($query_new_user_insert) {
 						$this->messages[] = "Your account has been created successfully. You can now log in.";
 						$this->registration_successful = true;
 						
 					} else {
-						$this->errors[] = "Sorry, your registration failed. Please go back and try again.";
+						echo "<span class='alert alert-danger'>Sorry, your registration failed. Please go back and try again.</span>";
 					}
 				}
 			} else {
-				$this->errors[] = "Sorry, no database connection.";
+				echo "<span class='alert alert-danger'>Sorry, no database connection.</span>";
 			}
 		} else {
-			$this->errors[] = "An unknown error occurred.";
+			echo "<span class='alert alert-danger'>An unknown error occurred.</span>";
 		}
 	}
 }

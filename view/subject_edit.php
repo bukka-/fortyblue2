@@ -15,7 +15,7 @@ if($subjects && $subject_edit_id >= 0){
 <form method="post" action="" name="subject_edit">
     <div class="form-group">
         <label for="subject_id">Subject ID</label>
-        <input id="subject_id" class="login_input form-control" type="text" name="subject_id" value="<? echo $subjects[$subject_edit_id][$subject_id]; ?>" required disabled/>
+        <input id="subject_id" class="login_input form-control" type="text" name="subject_id" value="<? echo $subjects[$subject_edit_id][$subject_id]; ?>" required readonly="readonly"/>
     </div>
     <div class="form-group">
         <label for="subject_name">Subject Name</label>

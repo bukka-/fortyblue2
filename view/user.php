@@ -1,9 +1,9 @@
 <?
 
 
-if($registration->checkUser($user)){
-	echo 'This is '.$user.'\'s profile';
+if($user->checkUser($user_name)){
+	echo 'This is '.$user_name.'\'s profile';
 }else{
-	echo '<span class="alert alert-danger">User '.$user.' does not excist.</span>';
+	echo '<span class="alert alert-danger">User '.$user_name.' does not excist.</span>';
 }
 ?>

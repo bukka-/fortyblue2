@@ -33,17 +33,19 @@
 						<li><a href="#">Add Custom</a></li>
 					</ul>
 				</div>
-			<?
-			if ($login->isUserLoggedIn() == true) {
-			?>
-				<p class="navbar-text pull-right user_nav">Hi <a href="/user/<? echo $_SESSION['user_name'];?>"><? echo $_SESSION['user_name'];?></a>! <a class="btn btn-default" href="/new_login.php?logout">Logout</a></p>
-			<?
-			} else{
-			?>
-				<p class="navbar-text pull-right user_nav">Hello Guest! <a href="#" id="log-in" class="navbar-link">Log In</a> or <a href="/register" class="btn btn-success">Register</a></p>
-			<?
-			}
-			?>
+			<p class="navbar-text pull-right user_nav">
+				<?
+				if ($login->isUserLoggedIn() == true) {
+				?>
+					Hi <a href="/user/<? echo $_SESSION['user_name'];?>"><? echo $_SESSION['user_name'];?></a>! <? if(isset($_SESSION['user_group']) == "admin") echo'<a class="btn btn-success" href="/panel">Panel</a>'; ?> <a class="btn btn-default" href="/new_login.php?logout">Logout</a>
+				<?
+				} else{
+				?>
+					Hello Guest! <a href="#" id="log-in" class="navbar-link">Log In</a> or <a href="/register" class="btn btn-success">Register</a>
+				<?
+				}
+				?>
+			</p>
 			</div>
 		</nav>
 
@@ -59,7 +61,7 @@
 
 		<? if(count($login->messages)>0){
 			for($i=0;$i<count($login->messages);$i++){
-				echo '<div class="alert alert-danger">'.$login->messages[$i].'</div>'; 
+				echo '<div class="alert alert-success">'.$login->messages[$i].'</div>'; 
 			}
 		} 
 		

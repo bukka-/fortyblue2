@@ -9,6 +9,11 @@ text-decoration: none;
 }
 
 
+.alert {
+	width: 100%;
+	display: inline-block;
+}
+
 .nav-logo{
 	display: block;
 	text-indent: -999px;
@@ -59,7 +64,6 @@ nav .navbar-text{
 
 .timetable-select{
 	width: 100%;
-	margin-left: 20px;
 
 }
 
@@ -162,6 +166,26 @@ td.break{
 
 footer {
 	margin: 20px 0px;
+}
+
+
+.thumbnail {
+	margin-bottom: 15px;
+}
+
+.thumbnail .btn{
+	margin-bottom: 10px;
+}
+
+/* Timetable edit*/
+
+.subjects .subject {
+	margin: 5px;
+}
+
+.subject_settings .btn{
+	float: right;
+	margin: 5px;
 }
 
 

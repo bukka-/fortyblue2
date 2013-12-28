@@ -29,6 +29,11 @@ if($page == "home"){
 }else if($page == "user" && strtolower($URI_parts[2])!=""){
 	$user = strtolower($URI_parts[2]);
 	controller_user($user);
+}else if($page == "user_edit" && strtolower($URI_parts[2])!=""){
+	$user = strtolower($URI_parts[2]);
+	controller_user_edit($user);
+}else if($page == "user_list"){
+	controller_user_list();
 }else if($page == "timetable"){
 	if (count($URI_parts) > 2){
 		$timetable = strtolower($URI_parts[2]);
@@ -40,6 +45,8 @@ if($page == "home"){
 	}else{
 		controller_timetable($timetable);
 	}
+}else if($page == "timetable_list"){
+
 }else if($page == "user_setup"){
 	controller_user_setup();
 }else if($page == "new_subject"){
@@ -49,6 +56,8 @@ if($page == "home"){
 }else if($page == "subject_edit" && strtolower($URI_parts[2])!=""){
 	$subject = intval(strtolower($URI_parts[2]))-1;
 	controller_subject_edit($subject);
+}else if($page == "panel"){
+	controller_panel();
 }else{
 	$page = "home";
 	controller_home();
@@ -69,18 +78,52 @@ function controller_register(){
 	include("view/register.php");
 }
 
-function controller_user($user){
+function controller_user($user_name){
 	global $login;
 	$registration = new Registration($login);
 
 	include('view/header.php');
+	include('model/User.php');
+	$user = new User();
+
 	include('view/user.php');
+}
+
+function controller_user_edit($user_edit_name){
+	global $login;
+
+	include('view/header.php');
+	if(isset($_SESSION['user_group']) == "admin"){
+	include('model/User.php');
+	$user = new User();
+	include('view/user_edit.php');
+	}else{
+		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
+	}
+}
+
+function controller_user_list(){
+	global $login;
+
+	include('view/header.php');
+	if(isset($_SESSION['user_group']) == "admin"){
+	include('model/User.php');
+	$user = new User();
+	include('view/user_list.php');
+	}else{
+		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
+	}
 }
 
 function controller_timetable_new(){
 	global $login;
 	include('view/header.php');
-	include('model/timetable.php');
+
+
+	include('model/Timetable.php');
+	include('model/Subject.php');
+	$subject = new Subject();
+
 	include('view/timetable_new.php');
 }
 
@@ -118,9 +161,23 @@ function controller_subject_list(){
 function controller_subject_edit($subject_edit_id){
 	global $login;
 	include('view/header.php');
-	include('model/Subject.php');
-	$subject = new Subject($login);
-	include('view/subject_edit.php');
+	if(isset($_SESSION['user_group']) == "admin"){
+		include('model/Subject.php');
+		$subject = new Subject($login);
+		include('view/subject_edit.php');
+	}else{
+		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
+	}
+}
+
+function controller_panel(){
+	global $login;
+	include('view/header.php');
+	if(isset($_SESSION['user_group']) == "admin"){
+		include('view/panel.php');
+	}else{
+		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
+	}
 }
 
 include('view/footer.php');

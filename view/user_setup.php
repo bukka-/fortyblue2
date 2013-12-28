@@ -4,7 +4,17 @@
 	
 <legend>Chose Your Class</legend>
 
+<select class="form-control">
+	<?
 
+	echo '	<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>';
+
+	?>
+</select>
 
 <legend>Chose Your Subjects</legend>
 <span class="help-block">These subjects will be used in filtering out your timetable.</span>
@@ -12,7 +22,9 @@
 
 	$subjects = $subject->getSubjects();
 	if($subjects){
-
+	    $subject_id = 2;
+	    $subject_name = 0;
+	    $subject_name_short = 1;
 
 		for($i=0; $i<count($subjects); $i++){
 			if($i%4 == 0) echo '<div class="row">';
@@ -26,7 +38,7 @@
 				</div>
 			</div>';
 
-			if($i%4 == 3) echo '</div>';
+			if($i%4 == 3 || $i == count($subjects)-1 ) echo '</div>';
 		}
 	}else{
 		echo '<div class="alert alert-danger">No subjects found.</div>';

@@ -11,6 +11,8 @@ class Login
 
 	private $user_id= "";
 
+	private $user_group= "member";
+
 	private $user_password_hash = "";
 
 	private $user_is_logged_in = false;
@@ -19,6 +21,11 @@ class Login
 
 	public $messages = array();
 
+	// public $user_groups = array(
+	// 	array("admin",0),
+	// 	array("member",1),
+	// 	array("moderator",2)
+	// );
 
 	public function __construct()
 	{
@@ -54,7 +61,7 @@ class Login
 				if ($this->db_connection) {
 					// get real token from database (and all other data)
 					
-					$checkcookie = $this->db_connection->query("SELECT user_name, user_email, user_id FROM users WHERE user_id = '" . $user_id . "';");
+					$checkcookie = $this->db_connection->query("SELECT user_name, user_email, user_id, user_group FROM users WHERE user_id = '" . $user_id . "';");
 
 					// $sth = $this->db_connection->prepare("SELECT user_id, user_name, user_email FROM users WHERE user_id = :user_id
 					//                                   AND user_rememberme_token = :user_rememberme_token AND user_rememberme_token IS NOT NULL");
@@ -69,12 +76,14 @@ class Login
 						$_SESSION['user_id'] = $result_row->user_id;
 						$_SESSION['user_name'] = $result_row->user_name;
 						$_SESSION['user_email'] = $result_row->user_email;
+						$_SESSION['user_group'] = $result_row->user_group;
 						$_SESSION['user_logged_in'] = 1;
 
 						// declare user id, set the login status to true
 						$this->user_id = $result_row->user_id;
 						$this->user_name = $result_row->user_name;
 						$this->user_email = $result_row->user_email;
+						$this->user_group = $result_row->user_group;
 						$this->user_is_logged_in = true;
 
 						// Cookie token usable only once
@@ -119,7 +128,7 @@ class Login
 				// escape the POST stuff
 				$this->user_name = $this->db_connection->real_escape_string($_POST['user_name']);
 				// database query, getting all the info of the selected user
-				$checklogin = $this->db_connection->query("SELECT user_name, user_email, user_password_hash, user_id FROM users WHERE user_name = '" . $this->user_name . "';");
+				$checklogin = $this->db_connection->query("SELECT user_name, user_email, user_password_hash, user_id, user_group FROM users WHERE user_name = '" . $this->user_name . "';");
 
 				// if this user exists
 				if ($checklogin->num_rows == 1) {
@@ -135,7 +144,13 @@ class Login
 						$_SESSION['user_id'] = $result_row->user_id;
 						$_SESSION['user_name'] = $result_row->user_name;
 						$_SESSION['user_email'] = $result_row->user_email;
+						$_SESSION['user_group'] = $result_row->user_group;
 						$_SESSION['user_logged_in'] = 1;
+
+						$this->user_id = $result_row->user_id;
+						$this->user_name = $result_row->user_name;
+						$this->user_email = $result_row->user_email;
+						$this->user_group = $result_row->user_group;
 
 						// set the login status to true
 						$this->user_is_logged_in = true;
@@ -222,12 +237,10 @@ class Login
 
 	}
 
-	/**
-	 * simply return the current state of the user's login
-	 * @return boolean user's login status
-	 */
+
 	public function isUserLoggedIn()
 	{
 		return $this->user_is_logged_in;
-	}
+	}	
+
 }
