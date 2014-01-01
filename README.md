@@ -16,7 +16,6 @@ A dynamic timetable for students.
 
 ###Requierments
 
-* AngularJS
 * Twitter Bootstrap 3.0
 * jQuery
 
