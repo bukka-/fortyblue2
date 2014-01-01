@@ -48,6 +48,70 @@ class Login
 		}
 	}
 
+	public function getTimetables() {
+		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+		if (!$this->db_connection->connect_errno) {
+			$getTimetables = "";
+
+				if (mysqli_connect_errno()) {
+				  return '<div class="alert alert-danger">Database connection problem.</div>';
+				  exit;
+				}
+				$query = "SELECT timetable_id, class, school, creator FROM timetables";
+				$result = $this->db_connection->query($query);
+
+
+				if ($result->num_rows < 1) {
+				  return false;
+				}     
+
+				$rows = array();
+				while($row = $result->fetch_object())
+				{
+				    $rows[] = $row;
+				}
+
+				return $rows;
+
+		}else{
+				return '<div class="alert alert-danger">Database connection problem.</div>';
+		}
+
+	}
+
+
+	public function getFilterSubjects($user_id) {
+		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+		if (!$this->db_connection->connect_errno) {
+
+				if (mysqli_connect_errno()) {
+				  return '<div class="alert alert-danger">Database connection problem.</div>';
+				  exit;
+				}
+				$query = "SELECT filter_subjects FROM users WHERE user_id = '" .$user_id. "';";
+				$result = $this->db_connection->query($query);
+
+
+				if ($result->num_rows < 1) {
+				  return false;
+				}     
+
+				$rows = array();
+				while($row = $result->fetch_object())
+				{
+				    $rows[] = $row;
+				}
+
+				return $rows;
+
+		}else{
+				return '<div class="alert alert-danger">Database connection problem.</div>';
+		}
+
+	}
+
 	private function loginWithCookieData()
 	{
 		if (isset($_COOKIE['rememberme'])) {

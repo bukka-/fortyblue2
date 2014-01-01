@@ -22,15 +22,39 @@
 
 				<div class="btn-group nav-dropdown">
 					<button type="button" class="btn btn-default dropdown-toggle dropdown-timetable" data-toggle="dropdown">
-						Test <span class="caret"></span>
+						<?
+						if(isset($timetable_id)){
+							$timetable2 = $timetable->getTimetable($timetable_id);
+							echo $timetable2->class.' '.$timetable2->school;
+						}else{
+							echo 'Select Timetable';
+						}
+
+						?>
+						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu timetable-select" role="menu">
+						<?
+						$timetables = $login->getTimetables();
+							for($i=0; $i<count($timetables); $i++){
+								$highlight = "";
+								if(isset($timetable_id) && $timetable_id == $timetables[$i]->timetable_id) $highlight = 'class="highlight"';
 
-						<li>
-							<a>Test</a>
-						</li>
+								echo '<li '.$highlight.'>
+										<a href="/timetable/'.$timetables[$i]->timetable_id.'">'.$timetables[$i]->class.' '.$timetables[$i]->school.'</a>
+									  </li>';
+							}
+						?>
+						
+
+						<?
+						if(isset($_SESSION['user_group']) == "admin"){
+						?>
 						<li class="divider"></li>
-						<li><a href="#">Add Custom</a></li>
+						<li><a href="/timetable_new">Add New</a></li>
+						<?
+						}	
+						?>
 					</ul>
 				</div>
 			<p class="navbar-text pull-right user_nav">

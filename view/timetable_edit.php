@@ -15,7 +15,7 @@
 		var timetable_settings =  <?php echo json_encode($timetable_array); ?>;
 		var timetable_id = <?php echo $timetable_id;?>;
 
-		var generate_timetable = true;
+		var generate_edit_timetable = true;
 
 		<?
 		if(isset($timetable->first_shift_timetable) && isset($timetable->second_shift_timetable)){
@@ -52,7 +52,7 @@
 
 			if($subjects){
 
-				for($i=1; $i<count($subjects); $i++){
+				for($i=0; $i<count($subjects); $i++){
 					echo '<div class="btn btn-default subject" id="'.$subjects[$i]->subject_id.'" title="'.$subjects[$i]->subject_name.'">'.$subjects[$i]->subject_name_short.'</div>';
 				}
 			}else{
@@ -72,25 +72,29 @@
 					<div class="btn btn-info high_level">Add HL <span class="glyphicon glyphicon-plus"></span></div>
 				</div>
 
-				<legend class="timetable_shift">First Shift:</legend>
+				<div class="btn btn-default hide_shift">Toggle First Shift</div>
 
-				<table class="table table-bordered table-hover timetable first_shift">
-					<thead>
-						<tr>
-							<th>Time</th>
-							<th>Monday</th>
-							<th>Tuesday</th>
-							<th>Wednesday</th>
-							<th>Thrusday</th>
-							<th>Friday</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-					</tbody>
-				</table>
+				<div class="first_shift_container">
+					<legend class="timetable_shift">First Shift:</legend>
 
-				<div class="btn btn-success timetable_save_shift" data-shift="first">Save First Shift</div>
+					<table class="table table-bordered table-hover timetable first_shift">
+						<thead>
+							<tr>
+								<th>Time</th>
+								<th>Monday</th>
+								<th>Tuesday</th>
+								<th>Wednesday</th>
+								<th>Thrusday</th>
+								<th>Friday</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+
+					<div class="btn btn-success timetable_save_shift" data-shift="first">Save First Shift</div>
+				</div>
 
 
 				<legend class="timetable_shift">Second Shift:</legend>

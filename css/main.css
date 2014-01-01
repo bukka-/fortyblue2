@@ -12,6 +12,8 @@ text-decoration: none;
 	border-radius: 0px;
 }
 
+
+
 .alert {
 	width: 100%;
 	display: inline-block;
@@ -31,6 +33,12 @@ text-decoration: none;
 
 .nav-dropdown{
 	width: 40%;
+}
+
+.nav-dropdown .highlight{
+	color: #fff;
+	text-decoration: none;
+	background-color: #4FC954;
 }
 
 .dropdown-timetable{
@@ -164,6 +172,27 @@ td.break{
 
 .timetable th.today-select{
 	color: #353535;
+}
+
+.timetable_container td>div>span {
+	border: 1px solid rgb(219, 219, 219);
+	padding: 5px;
+	margin: 5px;
+	border-radius: 3px;
+}
+
+.timetable_container .time{
+	font-size: 12px;
+}
+
+.timetable_container.filtered td>div>span{
+	border: none;
+	padding: 5px 10px;
+	margin: 5px;
+}
+
+.timetable_container.filtered .time{
+	font-size: 14px;
 }
 
 

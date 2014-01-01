@@ -36,11 +36,11 @@ if($page == "home"){
 	controller_user_list();
 }else if($page == "timetable"){
 	if (count($URI_parts) > 2){
-		$timetable = strtolower($URI_parts[2]);
+		$timetable_id = strtolower($URI_parts[2]);
 	}else{
-		$timetable = 1;
+		$timetable_id = 1;
 	}
-	controller_timetable($timetable);
+	controller_timetable($timetable_id);
 }else if($page == "timetable_new"){
 	controller_timetable_new();
 }else if($page == "timetable_list"){
@@ -76,6 +76,9 @@ function controller_home(){
 function controller_register(){
 	global $login;
 	$registration = new Registration($login);
+	
+	include('model/Subject.php');
+	$subject = new Subject($login);
 	
 	include('view/header.php');
 	include("view/register.php");
@@ -131,11 +134,17 @@ function controller_timetable_new(){
 	include('view/timetable_new.php');
 }
 
-function controller_timetable($timetable){
+function controller_timetable($timetable_id){
 	global $login;
-	include('view/header.php');
+
 	include('model/timetable.php');
 	$timetable = new Timetable();
+	
+	include('view/header.php');
+
+	include('model/Subject.php');
+	$subject = new Subject();
+
 	include('view/timetable.php');
 }
 
@@ -149,9 +158,9 @@ function controller_timetable_list(){
 
 function controller_timetable_edit($timetable_id){
 	global $login;
-	include('view/header.php');
 	include('model/Timetable.php');
 	$timetable = new Timetable();
+	include('view/header.php');
 	include('model/Subject.php');
 	$subject = new Subject();
 	include('view/timetable_edit.php');
@@ -160,8 +169,7 @@ function controller_timetable_edit($timetable_id){
 function controller_user_setup(){
 	global $login;
 	include('view/header.php');
-	include('model/Subject.php');
-	$subject = new Subject($login);
+
 	include('view/user_setup.php');
 }
 

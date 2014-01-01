@@ -70,6 +70,14 @@ class Registration
 				$this->user_name = $this->db_connection->real_escape_string(htmlentities($_POST['user_name'], ENT_QUOTES));
 				$this->user_email = $this->db_connection->real_escape_string(htmlentities($_POST['user_email'], ENT_QUOTES));
 
+				$this->class_id = $this->db_connection->real_escape_string(htmlentities($_POST['class_id'], ENT_QUOTES));
+
+				if(!empty($_POST['check_list'])) {
+					$this->filter_subjects = serialize($_POST['check_list']);
+				}
+
+
+
 				$this->user_password = $_POST['user_password_new'];
 
               
@@ -82,7 +90,7 @@ class Registration
 					echo "<span class='alert alert-danger'>Sorry, that user name is already taken. Please choose another one.</span>";
 				} else {
 					// write new users data into database
-					$query_new_user_insert = $this->db_connection->query("INSERT INTO users (user_name, user_password_hash, user_email, user_registration_ip, user_registration_datetime) VALUES('" . $this->user_name . "', '" . $this->user_password_hash . "', '" . $this->user_email . "', '".$_SERVER['REMOTE_ADDR']."', now())");
+					$query_new_user_insert = $this->db_connection->query("INSERT INTO users (user_name, user_password_hash, user_email, user_registration_ip, user_registration_datetime, class_id, filter_subjects) VALUES('" . $this->user_name . "', '" . $this->user_password_hash . "', '" . $this->user_email . "', '".$_SERVER['REMOTE_ADDR']."', now(), '".$this->class_id."', '".$this->filter_subjects."')");
 
 					if ($query_new_user_insert) {
 						$this->messages[] = "Your account has been created successfully. You can now log in.";

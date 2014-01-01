@@ -14,18 +14,15 @@
 
 $subjects = $subject->getSubjects();
 if($subjects){
-    $subject_id = 2;
-    $subject_name = 0;
-    $subject_name_short = 1;
 
     for($i=0; $i<count($subjects); $i++){
 
         echo '
         <tr>
-            <td>'.$subjects[$i][$subject_id].'</td>
-            <td>'.$subjects[$i][$subject_name].'</td>
-            <td>'.$subjects[$i][$subject_name_short].'</td>
-            <td><a href="/subject_edit/'.$subjects[$i][$subject_id].'"><span class="glyphicon glyphicon-edit"></span></a></td>
+            <td>'.$subjects[$i]->subject_id.'</td>
+            <td>'.$subjects[$i]->subject_name.'</td>
+            <td>'.$subjects[$i]->subject_name_short.'</td>
+            <td><a href="/subject_edit/'.$subjects[$i]->subject_id.'"><span class="glyphicon glyphicon-edit"></span></a></td>
         </tr>';
     }
 }else{
