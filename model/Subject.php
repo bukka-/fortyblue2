@@ -45,12 +45,14 @@ class Subject
 				  return false;
 				}     
 
-				while($row = $result->fetch_row()) {
-				  $rows[]=$row;
+				$rows = array();
+				while($row = $result->fetch_object())
+				{
+				    $rows[] = $row;
 				}
-				$result->close();
-				$this->db_connection->close();
+
 				return $rows;
+
 
 		}else{
 				return '<div class="alert alert-danger">Database connection problem.</div>';

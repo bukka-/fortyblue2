@@ -40,13 +40,14 @@ if($page == "home"){
 	}else{
 		$timetable = 1;
 	}
-	if($timetable == 'new'){
-		controller_timetable_new();
-	}else{
-		controller_timetable($timetable);
-	}
+	controller_timetable($timetable);
+}else if($page == "timetable_new"){
+	controller_timetable_new();
 }else if($page == "timetable_list"){
-
+	controller_timetable_list();
+}else if($page == "timetable_edit" && strtolower($URI_parts[2])!=""){
+	$timetable_id = intval(strtolower($URI_parts[2]));
+	controller_timetable_edit($timetable_id);
 }else if($page == "user_setup"){
 	controller_user_setup();
 }else if($page == "new_subject"){
@@ -58,6 +59,8 @@ if($page == "home"){
 	controller_subject_edit($subject);
 }else if($page == "panel"){
 	controller_panel();
+}else if($page == "feed"){
+	controller_feed();
 }else{
 	$page = "home";
 	controller_home();
@@ -121,6 +124,7 @@ function controller_timetable_new(){
 
 
 	include('model/Timetable.php');
+	$timetable = new Timetable();
 	include('model/Subject.php');
 	$subject = new Subject();
 
@@ -131,7 +135,26 @@ function controller_timetable($timetable){
 	global $login;
 	include('view/header.php');
 	include('model/timetable.php');
+	$timetable = new Timetable();
 	include('view/timetable.php');
+}
+
+function controller_timetable_list(){
+	global $login;
+	include('view/header.php');
+	include('model/Timetable.php');
+	$timetable = new Timetable();
+	include('view/timetable_list.php');
+}
+
+function controller_timetable_edit($timetable_id){
+	global $login;
+	include('view/header.php');
+	include('model/Timetable.php');
+	$timetable = new Timetable();
+	include('model/Subject.php');
+	$subject = new Subject();
+	include('view/timetable_edit.php');
 }
 
 function controller_user_setup(){
@@ -178,6 +201,11 @@ function controller_panel(){
 	}else{
 		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
 	}
+}
+
+function controller_feed(){
+	global $login;
+	include('model/TimetableContent.php');
 }
 
 include('view/footer.php');

@@ -8,6 +8,9 @@ color: #2D992D;
 text-decoration: none;
 }
 
+.navbar{
+	border-radius: 0px;
+}
 
 .alert {
 	width: 100%;
@@ -27,7 +30,7 @@ text-decoration: none;
 }
 
 .nav-dropdown{
-	width: 50%;
+	width: 40%;
 }
 
 .dropdown-timetable{
@@ -183,9 +186,46 @@ footer {
 	margin: 5px;
 }
 
+.subject_settings{
+	margin: 20px 0px;
+	height: 30px;
+}
+
 .subject_settings .btn{
 	float: right;
 	margin: 5px;
+}
+
+.timetable_errors{
+	display: none;
+}
+
+.timetable_success{
+	display: none;
+}
+
+.timetable_construct .btn{
+	padding: 2px 8px;
+	margin: 5px;
+	position: relative;
+	z-index: 2;
+}
+
+.timetable_construct .timetable td{
+	padding: 0px;
+	position: relative;
+	max-width: 140px;
+}
+
+.timetable_construct .timetable td>div{
+	position: relative;
+	width: 100%;
+	min-height: 45px;
+	padding: 5px 0px;
+}
+
+.timetable_construct{
+
 }
 
 
