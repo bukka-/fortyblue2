@@ -41,6 +41,11 @@ text-decoration: none;
 	background-color: #4FC954;
 }
 
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus{
+	background-color: #3AB83A;
+
+}
+
 .dropdown-timetable{
 	background-color: #F8F8F8;
 	height: 50px;
@@ -152,6 +157,7 @@ nav .navbar-text{
 	vertical-align: middle !important;
 }
 
+
 td.break{
 	font-size: 11px;
 	padding: 0px !important;
@@ -195,6 +201,27 @@ td.break{
 	font-size: 14px;
 }
 
+
+.table-button{
+	display: table-cell;
+}
+
+.align-middle{
+	vertical-align: middle !important;
+	text-align: center;
+}
+
+.table tr>td{
+	vertical-align: middle !important;
+}
+
+.full-width{
+	width: 100%;
+}
+
+.badge.badge-success {
+	background-color: #5cb85c;
+}
 
 footer {
 	margin: 20px 0px;

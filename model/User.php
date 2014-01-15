@@ -79,11 +79,12 @@ class User
 				  return false;
 				}     
 
-				while($row = $result->fetch_row()) {
-				  $rows[]=$row;
+				$rows = array();
+				while($row = $result->fetch_object())
+				{
+				    $rows[] = $row;
 				}
-				$result->close();
-				$this->db_connection->close();
+
 				return $rows;
 
 		}else{

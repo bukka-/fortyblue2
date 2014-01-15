@@ -2,7 +2,7 @@
 		<footer>
 			<div class="panel panel-default">
   				<div class="panel-body">
-					Made by natoshi
+					<a href="https://github.com/natoshi/sixtylime">Project on GitHub.</a>
 				</div>
 			</div>
 		</footer>

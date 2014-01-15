@@ -269,11 +269,12 @@ $(document).ready(function(){
 		};
 
 	};
-
-	if(generate_edit_timetable){
-		generateTimetable('timetable_construct', 'edit');
-	}else if(generate_timetable){
-		generateTimetable('timetable_container', 'display');
+	if(typeof generate_edit_timetable != 'undefined'){
+		if(generate_edit_timetable){
+			generateTimetable('timetable_construct', 'edit');
+		}else if(generate_timetable){
+			generateTimetable('timetable_container', 'display');
+		}
 	}
 
 	function getTableData(shift){
@@ -480,13 +481,15 @@ $(document).ready(function(){
 		};
 	}
 
-	if(fill_edit_timetable){
-		fillEditTimetable(first_shift_timetable, 'first');
-		fillEditTimetable(second_shift_timetable, 'second');
-	}else if(fill_timetable){
-		// TO DO calc shift
+	if(typeof fill_edit_timetable != 'undefined'){
+		if(fill_edit_timetable){
+			fillEditTimetable(first_shift_timetable, 'first');
+			fillEditTimetable(second_shift_timetable, 'second');
+		}else if(fill_timetable){
+			// TO DO calc shift
 
-		fillTimetable(first_shift_timetable, 'first', true);
+			fillTimetable(first_shift_timetable, 'first', true);
+		}
 	}
 
 
@@ -520,9 +523,132 @@ $(document).ready(function(){
 
 	    }
 	});
-	console.log(filter);
+
 	if(filter != "filter"){
 		$('#filter_subjects:checkbox').click();
 	}
+
+	// Grade Table
+
+	$('#add_grade').click(function() {
+		$('#add_grade_controls').css('display', 'table-row');
+		$(this).css('display', 'none');
+	});
+
+	$('.btn').button();
+
+
+	function saveUserGrade(content, user_id, subject_id, button){
+		$.ajax({
+			url:"/feed/UserSubject.php",
+			type:"post",
+			data:{grade_data:content ,user_id:user_id, subject_id: subject_id},
+			success:function(result){
+				button.button('reset');
+				grade_date = moment(content.grade_date).format('MMMM Do');
+				last_row_id = parseInt($('.grade_list tr:nth-last-child(3)').attr('id')) + 1;
+
+				element = '<tr id="'+last_row_id+'"><td>'+grade_date+'</td><td>'+content.grade_task+'</td><td>'+content.grade_value+'</td><td class="align-middle"><span class="btn btn-default glyphicon glyphicon-edit" title="Edit" data-rowid="'+last_row_id+'" id="edit_row"></span></td></tr>';
+
+				$(element).insertAfter('.grade_list tr:nth-last-child(3)')
+
+				$('#grade_date').val('');
+				$('#grade_task').val('');
+				$('#grade_value').val('');
+
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+
+	$('#submit_grade').click(function() {
+
+		$(this).button('loading');
+
+		var grade_data = {};
+
+		grade_data.grade_date = $('#grade_date').val();
+		grade_data.grade_task = $('#grade_task').val();
+		grade_data.grade_value = $('#grade_value').val();
+
+		saveUserGrade(grade_data, user_id, subject_id, $(this));
+	});
+
+
+	function editUserGrade(content, user_id, subject_id, button){
+		$.ajax({
+			url:"/feed/UserSubject.php",
+			type:"post",
+			data:{grade_edit_data:content ,user_id:user_id, subject_id: subject_id},
+			success:function(result){
+				console.log(result);
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+
+
+
+	$(document).on('click', ".edit_grade", function() {
+		if($(this).hasClass('save_grade')){
+			return false;
+		}
+		edit_row_id = $(this).attr('data-rowid');
+
+		$(this).removeClass('edit_grade').addClass('save_grade').html('<span title="Save" class="btn btn-default glyphicon glyphicon-check"></span>');
+
+		row_grade_date = $("#"+edit_row_id+" #row_grade_date").attr('title');
+		row_grade_date = moment(row_grade_date, 'MMMM DD yyyy').format('YYYY-MM-DD');
+		$("#"+edit_row_id+" #row_grade_date").html('<input id="edit_grade_date" class="form-control full-width" type="date" placeholder="mm/dd/yyyy" value="'+row_grade_date+'" />');
+
+		row_grade_task = $("#"+edit_row_id+" #row_grade_task").text();
+		$("#"+edit_row_id+" #row_grade_task").html('<input value="'+row_grade_task+'"  id="edit_grade_task" class="form-control full-width" type="text" placeholder="Task"/>');
+
+		row_grade_value = $("#"+edit_row_id+" #row_grade_value").text();
+		$("#"+edit_row_id+" #row_grade_value").html('<input name="" value="'+row_grade_value+'" id="edit_grade_value" class="form-control full-width" type="number" min="1" max="7" placeholder="Grade"/>');
+
+		grade_edit_data = {
+			grade_date : row_grade_date,
+			grade_task : row_grade_task,
+			grade_value : row_grade_value,
+		}
+
+	});
+
+
+	$(document).on('click', ".save_grade", function() {
+		var grade_data = {};
+
+		edit_row_id = $(this).attr('data-rowid');
+
+		grade_data.grade_id = $("#"+edit_row_id).attr('data-gradeid');
+		grade_data.grade_date = $("#"+edit_row_id+" #row_grade_date input").val();
+		grade_data.grade_task = $("#"+edit_row_id+" #row_grade_task input").val();
+		grade_data.grade_value = $("#"+edit_row_id+" #row_grade_value input").val();
+
+		if(grade_data.grade_date == grade_edit_data.grade_date && grade_data.grade_task == grade_edit_data.grade_task && grade_data.grade_value == grade_edit_data.grade_value){
+
+			grade_edit_data.grade_date = moment(grade_edit_data.grade_date, 'YYYY-MM-DD').format('MMMM Do ');
+			$("#"+edit_row_id+" #row_grade_date").text(grade_edit_data.grade_date);
+			$("#"+edit_row_id+" #row_grade_task").text(grade_edit_data.grade_task);
+			$("#"+edit_row_id+" #row_grade_value").text(grade_edit_data.grade_value);
+
+			$(this).removeClass('save_grade').addClass('edit_grade').html('<span title="Edit" class="btn btn-default glyphicon glyphicon-edit"></span>');
+		}else{
+			editUserGrade(grade_data, user_id, subject_id, $(this));
+
+			grade_data.grade_date = moment(grade_data.grade_date, 'YYYY-MM-DD').format('MMMM Do ');
+			$("#"+edit_row_id+" #row_grade_date").text(grade_data.grade_date);
+			$("#"+edit_row_id+" #row_grade_task").text(grade_data.grade_task);
+			$("#"+edit_row_id+" #row_grade_value").text(grade_data.grade_value);
+
+			$(this).removeClass('save_grade').addClass('edit_grade').html('<span title="Edit" class="btn btn-default glyphicon glyphicon-edit"></span>');
+		}
+
+	});
 
 });

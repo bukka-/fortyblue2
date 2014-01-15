@@ -60,6 +60,42 @@ class Subject
 
 	}
 
+	public function getSubjectGrades($subject_id, $user_id) {
+		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+		if (!$this->db_connection->connect_errno) {
+			$getSubjects = "";
+
+				if (mysqli_connect_errno()) {
+				  return '<div class="alert alert-danger">Database connection problem.</div>';
+				  exit;
+				}
+				$query = "SELECT * FROM grades WHERE 
+							subject_id ='".$subject_id."' 
+							AND user_id ='".$user_id."'
+						 	ORDER BY `date` ASC;";
+				$result = $this->db_connection->query($query);
+
+
+				if ($result->num_rows < 1) {
+				  return false;
+				}     
+
+				$rows = array();
+				while($row = $result->fetch_object())
+				{
+				    $rows[] = $row;
+				}
+
+				return $rows;
+
+
+		}else{
+				return '<div class="alert alert-danger">Database connection problem.</div>';
+		}
+
+	}
+
 	private function newSubject() {
 		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		
