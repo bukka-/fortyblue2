@@ -3,9 +3,7 @@
 if($user->checkUser($user_name)){
 	echo '<h1>This is '.$user_name.'\'s profile </h1>';
 
-	$filter_subjects = $login->getFilterSubjects($_SESSION['user_id']);
 
-	$filter_subjects = unserialize($filter_subjects[0]->filter_subjects);
 
 	$subjects = $subject->getSubjects();
 
@@ -13,13 +11,18 @@ if($user->checkUser($user_name)){
 
 	$user_id = $user_info[0]->user_id;
 
-	
+	$filter_subjects = $login->getFilterSubjects($user_id);
+	if(isset($filter_subjects[0]->filter_subjects)){
+		$filter_subjects = unserialize($filter_subjects[0]->filter_subjects);
+	}
 
 
 	echo "<h2>Subjects</h2>";
 
 	echo '<div class="list-group">';
 
+	if(count($filter_subjects)>1){
+	
 		for($i=0; $i<count($filter_subjects); $i++){
 
 
@@ -45,6 +48,9 @@ if($user->checkUser($user_name)){
 			echo '</a>';
 
 		}
+	}else{
+		echo '<span class="list-group-item alert-danger">The user has no subjects selected.</span>';
+	}
 	echo '</div>';
 
 }else{

@@ -8,6 +8,3 @@
 
     RewriteRule .* index.php [L,QSA]
 </IfModule>
-
-
-php_value session.gc_maxlifetime 36000

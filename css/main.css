@@ -8,6 +8,10 @@ color: #2D992D;
 text-decoration: none;
 }
 
+.no-margin{
+	margin:auto 0px;
+}
+
 .navbar{
 	border-radius: 0px;
 }
@@ -93,7 +97,7 @@ nav .navbar-text{
 }
 
 .time-until{
-	font-size:55px;
+	font-size: 65px;
 }
 
 .remind-me{

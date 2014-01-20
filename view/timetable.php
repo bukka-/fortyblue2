@@ -1,7 +1,6 @@
 	
 <?
 	$timetable = $timetable->getTimetable($timetable_id);
-
 	if($timetable == false){
 		echo '<span class="alert alert-danger">Timetable not found</span>';
 	}else{
@@ -12,7 +11,6 @@
 		$filter_subjects = $login->getFilterSubjects($_SESSION['user_id']);
 
 		$filter_subjects = unserialize($filter_subjects[0]->filter_subjects);
-
 ?>
 	
 	<script type="text/javascript">
@@ -21,6 +19,12 @@
 
 		var generate_timetable = true;
 		var generate_edit_timetable = false;
+
+		<? echo 'var shift_start = "'.(string)$timetable->shift_start.'"; '; ?>
+
+
+
+		console.log(shift_start);
 
 		<?
 		if(isset($timetable->first_shift_timetable) && isset($timetable->second_shift_timetable)){
@@ -51,12 +55,25 @@
 
 		<div class="row">
 			<div class="col-sm-6">
-				<span class="time-until-text">Time until next lesson</span>
-				<span class="time-until">02:42</span>
-				<span class="glyphicon glyphicon-time remind-me" rel="tooltip" title="Set Reminder"></span>
+				<div class="panel panel-default">	
+					<div class="panel-heading">Time until next lesson</div>
+					<div class="panel-body">
+						<!-- <span class="time-until-text"></span> -->
+						<span class="time-until">02:42</span>
+						<span class="glyphicon glyphicon-time remind-me" rel="tooltip" title="Set Reminder"></span>
+					</div>
+				</div>
 			</div>
 			<div class="col-sm-6">
-				Notifications
+				<div class="panel panel-default">
+					<div class="panel-heading">Notifications</div>
+					<!-- <div class="panel-body"></div> -->
+					<ul class="list-group">
+						<li class="list-group-item"><span class="label label-success">NEW</span> No school on January 19th </li>
+						<li class="list-group-item"><span class="label label-danger">Warning</span> Math test on Thursday (January 22nd), in 2 days</li>
+						<li class="list-group-item"><span class="label label-default">OLD</span> Shorter Lessons on January 11th</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 

@@ -50,7 +50,7 @@ class Login
 
 	public function getTimetables() {
 		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
+		
 		if (!$this->db_connection->connect_errno) {
 			$getTimetables = "";
 
@@ -92,7 +92,6 @@ class Login
 				}
 				$query = "SELECT filter_subjects FROM users WHERE user_id = '" .$user_id. "';";
 				$result = $this->db_connection->query($query);
-
 
 				if ($result->num_rows < 1) {
 				  return false;

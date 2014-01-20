@@ -236,6 +236,7 @@ $(document).ready(function(){
 
 		current_time_minutes = calculateTimeMinutes(time);
 
+
 		table_height = $('table.timetable tbody').height();
 
 		timeline_fill = (((current_time_minutes-time_start_minutes)*100)/(time_end_minutes-time_start_minutes));
@@ -615,7 +616,8 @@ $(document).ready(function(){
 				index++;
 			};
 		};
-		initDraggable()
+		initDraggable();
+
 	}
 
 
@@ -682,7 +684,9 @@ $(document).ready(function(){
 			};
 		};
 
-		timetableInit();
+			timetableInit();
+
+		
 	}
 
 	function clearTable(){
@@ -693,16 +697,41 @@ $(document).ready(function(){
 		};
 	}
 
-	if(typeof fill_edit_timetable != 'undefined'){
+
+	function getWeekNumber(d) {
+	    d = new Date(+d);
+	    d.setHours(0,0,0);
+	    d.setDate(d.getDate() + 4 - (d.getDay()||7));
+	    var yearStart = new Date(d.getFullYear(),0,1);
+	    var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
+	    return weekNo;
+	}
+
+	function printTimetableByShift(filter_check){
 		if(fill_edit_timetable){
 			fillEditTimetable(first_shift_timetable, 'first');
 			fillEditTimetable(second_shift_timetable, 'second');
 		}else if(fill_timetable){
-			// TO DO calc shift
+			if(shift_start == 'first'){
+				shift_check = 1;
+			}else{
+				shift_check = 0;
+			}
 
-			fillTimetable(first_shift_timetable, 'first', true);
+			week_number = getWeekNumber(new Date());
+
+			if( week_number % 2 == shift_check){
+				fillTimetable(first_shift_timetable, 'first', filter_check);
+			}else{
+				fillTimetable(second_shift_timetable, 'second', filter_check);
+			}
+			setTimeout(function () {timetableInit();}, 50); 
+			 // console.log(week_number, week_number % 2, shift_start);
 		}
 	}
+
+	printTimetableByShift(true);
+
 
 
 	$('.hide_shift').click(function(){
@@ -722,13 +751,13 @@ $(document).ready(function(){
 	$('#filter_subjects:checkbox').click(function() {
 		clearTable();
 	    if (this.checked) {
-	    	fillTimetable(first_shift_timetable, 'first', true);
+	    	printTimetableByShift(true)
 	    	$('.timetable_container').addClass('filtered');
 
 			filter = "filter";
 			localStorage.setItem( 'filter', JSON.stringify(filter) );
 	    }else{
-			fillTimetable(first_shift_timetable, 'first', false);
+			printTimetableByShift(false);
 			$('.timetable_container').removeClass('filtered');
 			filter = "";
 			localStorage.setItem( 'filter', JSON.stringify(filter) );
