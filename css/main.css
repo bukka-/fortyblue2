@@ -69,6 +69,11 @@ text-decoration: none;
 	margin-top: 9px;
 }
 
+.calendar-button{
+	float: left;
+	margin: 8px;
+}
+
 .user_log_in{
 	display: none;
 	margin: 10px 0px;
@@ -285,7 +290,19 @@ footer {
 }
 
 .timetable_construct{
+	padding-top: 50px;
+}
 
+/* Calendar */
+
+.calendar{
+	top: 20px;
+	position: relative;
+	margin-bottom: 40px;
+}
+
+#cal-week-box {
+	display: none !important;
 }
 
 

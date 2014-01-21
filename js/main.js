@@ -270,10 +270,10 @@ $(document).ready(function(){
 		};
 
 	};
-	if(typeof generate_edit_timetable != 'undefined'){
-		if(generate_edit_timetable){
+	if(typeof generate_edit_timetable != 'undefined' || typeof generate_timetable != 'undefined'){
+		if(typeof generate_edit_timetable != 'undefined'){
 			generateTimetable('timetable_construct', 'edit');
-		}else if(generate_timetable){
+		}else if(typeof generate_timetable != 'undefined'){
 			generateTimetable('timetable_container', 'display');
 		}
 	}
@@ -496,10 +496,11 @@ $(document).ready(function(){
 	}
 
 	function printTimetableByShift(filter_check){
-		if(fill_edit_timetable){
+		if(typeof generate_edit_timetable != 'undefined'){
 			fillEditTimetable(first_shift_timetable, 'first');
 			fillEditTimetable(second_shift_timetable, 'second');
-		}else if(fill_timetable){
+		}else if(typeof generate_timetable != 'undefined'){
+
 			if(shift_start == 'first'){
 				shift_check = 1;
 			}else{
@@ -679,5 +680,97 @@ $(document).ready(function(){
 		}
 
 	});
+
+
+	// Calendar
+
+		var events = {};
+	$.ajax({ 
+		url:"/feed/CalendarEvents.php",
+		data: {getevents: true, from: '1970-01-02', to: '2015-02-02'},
+		type: 'post',
+		success: function(output) {
+			events = JSON.parse(output);
+
+			events[0].start = new Date(events[0].datetime_start)/ 1000 + '000';
+			events[0].end = new Date(events[0].datetime_end)/ 1000 + '000';
+
+			initCalendar();
+		}
+	});
+
+
+
+
+
+		function initCalendar(){
+
+
+			var options = {
+				events_source: function(){
+				    return events;
+				},
+				view: 'month',
+				tmpl_path: './js/vendor/tmpls/',
+				tmpl_cache: false, 
+				first_day: 1,
+				onAfterEventsLoad: function(events) {
+					if(!events) {
+						return;
+					}
+					var list = $('#eventlist');
+					list.html('');
+
+					$.each(events, function(key, val) {
+						$(document.createElement('li'))
+							.html('<a href="' + val.url + '">' + val.title + '</a>')
+							.appendTo(list);
+					});
+				},
+				onAfterViewLoad: function(view) {
+					$('.current_month').text(this.getTitle());
+					$('.btn-group button').removeClass('active');
+					$('button[data-calendar-view="' + view + '"]').addClass('active');
+				},
+				classes: {
+					months: {
+						general: 'label'
+					}
+				}
+			};
+
+			calendar = $('#calendar').calendar(options);
+		}
+
+		$('.btn-group button[data-calendar-nav]').each(function() {
+			var $this = $(this);
+			$this.click(function() {
+				calendar.navigate($this.data('calendar-nav'));
+			});
+		});
+
+		$('.btn-group button[data-calendar-view]').each(function() {
+			var $this = $(this);
+			$this.click(function() {
+				calendar.view($this.data('calendar-view'));
+			});
+		});
+
+		$('#first_day').change(function(){
+			var value = $(this).val();
+			value = value.length ? parseInt(value) : null;
+			calendar.setOptions({first_day: value});
+			calendar.view();
+		});
+
+		$('#language').change(function(){
+			calendar.setLanguage($(this).val());
+			calendar.view();
+		});
+
+		$('#events-in-modal').change(function(){
+			var val = $(this).is(':checked') ? $(this).val() : null;
+			calendar.setOptions({modal: val});
+		});
 
 });

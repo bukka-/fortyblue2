@@ -42,6 +42,17 @@ if($page == "home"){
 	controller_user_edit($user);
 }else if($page == "user_list"){
 	controller_user_list();
+}else if($page == "calendar"){
+	controller_calendar();
+}else if($page == "calendar_edit"){
+	controller_calendar_edit();
+}else if($page == "events"){
+	controller_events();
+}else if($page == "events_list"){
+	controller_events_list();
+}else if($page == "events_edit" && strtolower($URI_parts[2])!=""){
+	$event_id = intval(strtolower($URI_parts[2]))-1;
+	controller_events_edit($event_id);
 }else if($page == "timetable"){
 	if (count($URI_parts) > 2){
 		$timetable_id = strtolower($URI_parts[2]);
@@ -85,6 +96,7 @@ function controller_home(){
 	include('./view/header.php');
 	include('./view/home.php');
 }
+
 
 function controller_register(){
 	global $login;
@@ -146,6 +158,25 @@ function controller_user_list(){
 		include('./model/User.php');
 		$user = new User();
 		include('./view/user_list.php');
+	}else{
+		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
+	}
+}
+
+function controller_calendar(){
+	global $login;
+	include('./view/header.php');
+	include('./view/calendar.php');
+}
+
+function controller_calendar_edit(){
+	global $login;
+
+	include('./view/header.php');
+	if(isset($_SESSION['user_group']) && $_SESSION['user_group'] == "admin"){
+		include('./model/Calendar.php');
+		$calendar = new Calendar();
+		include('./view/calendar_edit.php');
 	}else{
 		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
 	}
@@ -269,6 +300,8 @@ function controller_feed(){
 		include('./model/TimetableContent.php');
 	}else if(isset($_POST['grade_data']) || isset($_POST['grade_edit_data'])){
 		include('./model/UserSubject.php');
+	}else if(isset($_POST['getevents'])){
+		include('./model/CalendarEvents.php');
 	}
 }
 

@@ -18,13 +18,9 @@
 		var timetable_id = <?php echo $timetable_id;?>;
 
 		var generate_timetable = true;
-		var generate_edit_timetable = false;
+
 
 		<? echo 'var shift_start = "'.(string)$timetable->shift_start.'"; '; ?>
-
-
-
-		console.log(shift_start);
 
 		<?
 		if(isset($timetable->first_shift_timetable) && isset($timetable->second_shift_timetable)){
@@ -36,10 +32,6 @@
 			$second_shift_timetable = json_decode($timetable->second_shift_timetable);
 			$second_shift_timetable = get_object_vars($second_shift_timetable);
 			echo 'var second_shift_timetable = '.json_encode($second_shift_timetable).'; ';
-
-
-			echo 'var fill_timetable = true;';
-			echo 'var fill_edit_timetable = false;';
 		}
 
 		if(isset($filter_subjects)){
@@ -103,7 +95,6 @@
 				</tbody>
 			</table>
 		</div>
-
 
 <?
 }

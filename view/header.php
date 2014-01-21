@@ -7,7 +7,7 @@
 		<script src="/vendor/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
 		
-		<link rel="stylesheet" href="/css/main.css">
+		<link rel="stylesheet" href="/dev/main.css">
 
 
 		<link rel="shortcut icon" href="/favicon.ico" />
@@ -58,6 +58,11 @@
 						?>
 					</ul>
 				</div>
+				<a href="/calendar" title="Calendar">
+					<div class="btn btn-default calendar-button">
+						<span class="glyphicon glyphicon-calendar"></span>
+					</div>
+				</a>
 			<p class="navbar-text pull-right user_nav">
 				<?
 				if ($login->isUserLoggedIn() == true) {
