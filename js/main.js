@@ -78,7 +78,6 @@ $(document).ready(function(){
 					source = source.draggable[0];
 					helper_text = $(helper).text();
 
-					console.log(helper_id);
 
 					if($(this).find('.btn').length > 3){
 						$('.timetable_errors').css('display', 'block').text("That cell is already full.");
@@ -684,63 +683,113 @@ $(document).ready(function(){
 
 	// Calendar
 
+
+	function reInitCalendar(filter) {
+
 		var events = {};
-	$.ajax({ 
-		url:"/feed/CalendarEvents.php",
-		data: {getevents: true, from: '1970-01-02', to: '2015-02-02'},
-		type: 'post',
-		success: function(output) {
-			events = JSON.parse(output);
 
-			events[0].start = new Date(events[0].datetime_start)/ 1000 + '000';
-			events[0].end = new Date(events[0].datetime_end)/ 1000 + '000';
+		console.log('filter_subjects', filter_subjects);
 
-			initCalendar();
-		}
-	});
+		$.ajax({ 
+			url:"/feed/CalendarEvents.php",
+			data: {getevents: true, from: '1970-01-02', to: '2015-02-02'},
+			type: 'post',
+			success: function(output) {
+				events = JSON.parse(output);
 
+				$.each(events, function(index, value) { 
+					if (events[index].public == true) {
+						events[index].start = new Date(events[index].datetime_start)/ 1000 + '000';
+						events[index].end = new Date(events[index].datetime_end)/ 1000 + '000';
+					};
+					events[index].time_start = events[index].time_start.substring(0, events[index].time_start.length - 3)
+					if (filter == true){
+						console.log(filter_events, events[index].subject_id);
+						if (filter_subjects.indexOf(events[index].subject_id) > -1){
+						}else{
+							console.log(events[index].title);
+							events[index] = '';
 
-
-
-
-		function initCalendar(){
-
-
-			var options = {
-				events_source: function(){
-				    return events;
-				},
-				view: 'month',
-				tmpl_path: './js/vendor/tmpls/',
-				tmpl_cache: false, 
-				first_day: 1,
-				onAfterEventsLoad: function(events) {
-					if(!events) {
-						return;
+						}
 					}
-					var list = $('#eventlist');
-					list.html('');
+				});
 
-					$.each(events, function(key, val) {
-						$(document.createElement('li'))
-							.html('<a href="' + val.url + '">' + val.title + '</a>')
-							.appendTo(list);
-					});
-				},
-				onAfterViewLoad: function(view) {
-					$('.current_month').text(this.getTitle());
-					$('.btn-group button').removeClass('active');
-					$('button[data-calendar-view="' + view + '"]').addClass('active');
-				},
-				classes: {
-					months: {
-						general: 'label'
+				initCalendar();
+			}
+		});
+
+		
+			function initCalendar(){
+
+				console.log(events);
+
+				var options = {
+					events_source: function(){
+					    return events;
+					},
+					view: 'month',
+					tmpl_path: './js/vendor/tmpls/',
+					tmpl_cache: false, 
+					first_day: 1,
+					onAfterEventsLoad: function(events) {
+						if(!events) {
+							return;
+						}
+						var list = $('#eventlist');
+						list.html('');
+
+						$.each(events, function(key, val) {
+							$(document.createElement('li'))
+								.html('<a href="' + val.url + '">' + val.title + '</a>')
+								.appendTo(list);
+						});
+					},
+					onAfterViewLoad: function(view) {
+						$('.current_month').text(this.getTitle());
+						$('.btn-group button').removeClass('active');
+						$('button[data-calendar-view="' + view + '"]').addClass('active');
+					},
+					classes: {
+						months: {
+							general: 'label'
+						}
 					}
-				}
-			};
+				};
 
-			calendar = $('#calendar').calendar(options);
+				calendar = $('#calendar').calendar(options);
+
+				$('.events-list').each(function(i, obj) {
+					event_ammount = $(this).children('.event').length;
+					more_events = event_ammount - 2;
+
+					if (more_events > 0) {
+						$("<span class='badge badge-success more-events' title='+"+more_events+" more events.'>+"+more_events+"<span class='caret'></span></span>").insertAfter($(this));
+					};
+				});
+			}
 		}
+
+		// Filter Events
+
+		reInitCalendar(true);
+		var filter_events = JSON.parse(localStorage.getItem( 'filter_events' ));
+
+		$('#filter_events:checkbox').click(function() {
+		    if (this.checked) {
+				filter = true;
+				localStorage.setItem( 'filter_events', JSON.stringify(filter) );
+				reInitCalendar(filter)
+		    }else{
+				filter = false;
+				localStorage.setItem( 'filter_events', JSON.stringify(filter) );
+				reInitCalendar(filter)
+		    }
+		});
+
+		if(filter_events != true){
+			$('#filter_events:checkbox').click();
+		}
+
 
 		$('.btn-group button[data-calendar-nav]').each(function() {
 			var $this = $(this);

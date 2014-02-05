@@ -172,7 +172,7 @@ td.break{
 	padding: 0px !important;
 }
 
-.today{
+.timetable .today{
 	width: 0px;
 	height: 0px;
 	position: absolute;
@@ -247,12 +247,20 @@ footer {
 
 /* Timetable edit*/
 
+.timetable_construct .subjects{
+	position: absolute;
+}
+
+.generated_timetable{
+	position: relative;
+	top: 40px;
+}
+
 .subjects .subject {
 	margin: 5px;
 }
 
 .subject_settings{
-	margin: 20px 0px;
 	height: 30px;
 }
 
@@ -290,7 +298,7 @@ footer {
 }
 
 .timetable_construct{
-	padding-top: 50px;
+
 }
 
 /* Calendar */

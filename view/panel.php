@@ -33,9 +33,9 @@ echo '<legend>Welcome '.$_SESSION['user_name'].'</legend>';
 	<div class="col-sm-6 col-md-3">
 		<div class="thumbnail">
 			<div class="caption">
-				<h3>Thumbnail label</h3>
-				<p>...</p>
-				<p><a href="#" class="btn btn-success" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+				<h3>Events</h3>
+				<p>Use this to create and manage events.</p>
+				<p><a href="/events_list" class="btn btn-success" role="button">Events List</a> <a href="/event_new" class="btn btn-default" role="button">New Event</a></p>
 			</div>
 		</div>
 	</div>

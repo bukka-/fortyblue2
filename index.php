@@ -50,9 +50,11 @@ if($page == "home"){
 	controller_events();
 }else if($page == "events_list"){
 	controller_events_list();
-}else if($page == "events_edit" && strtolower($URI_parts[2])!=""){
+}else if($page == "event_new"){
+	controller_event_new();
+}else if($page == "event_edit" && strtolower($URI_parts[2])!=""){
 	$event_id = intval(strtolower($URI_parts[2]))-1;
-	controller_events_edit($event_id);
+	controller_event_edit($event_id);
 }else if($page == "timetable"){
 	if (count($URI_parts) > 2){
 		$timetable_id = strtolower($URI_parts[2]);
@@ -165,6 +167,8 @@ function controller_user_list(){
 
 function controller_calendar(){
 	global $login;
+	include('./model/Subject.php');
+	$subject = new Subject($login);
 	include('./view/header.php');
 	include('./view/calendar.php');
 }
@@ -279,6 +283,50 @@ function controller_subject_edit($subject_edit_id){
 		include('./model/Subject.php');
 		$subject = new Subject($login);
 		include('./view/subject_edit.php');
+	}else{
+		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
+	}
+}
+
+
+function controller_event_new(){
+	global $login;
+	include('./view/header.php');
+	if(isset($_SESSION['user_group']) && $_SESSION['user_group'] == "admin"){
+		include('./model/Event.php');
+		$event = new Event($login);
+		$event_new = true;
+		include('./model/Subject.php');
+		$subject = new Subject($login);
+		include('./view/events_edit.php');
+	}else{
+		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
+	}
+
+}
+
+function controller_events_list(){
+	global $login;
+	include('./view/header.php');
+	if(isset($_SESSION['user_group']) && $_SESSION['user_group'] == "admin"){
+		include('./model/Event.php');
+		$event = new Event($login);
+
+		include('./view/events_list.php');
+	}else{
+		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
+	}
+}
+
+function controller_event_edit($event_id){
+	global $login;
+	include('./view/header.php');
+	if(isset($_SESSION['user_group']) && $_SESSION['user_group'] == "admin"){
+		include('./model/Event.php');
+		$event = new Event($login);
+		include('./model/Subject.php');
+		$subject = new Subject($login);
+		include('./view/events_edit.php');
 	}else{
 		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
 	}

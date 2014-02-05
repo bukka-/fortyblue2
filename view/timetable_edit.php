@@ -65,14 +65,14 @@
 			<div class="generated_timetable">
 
 				<div class="subject_settings">
-		
+					<div class="btn btn-default hide_shift pull-left">Toggle First Shift</div>
 					<div class="btn btn-danger trash">Trash <span class="glyphicon glyphicon-trash"></span></div>
 					
 					<div class="btn btn-info standard_level">Add SL <span class="glyphicon glyphicon-plus"></span></div>
 					<div class="btn btn-info high_level">Add HL <span class="glyphicon glyphicon-plus"></span></div>
 				</div>
 
-				<div class="btn btn-default hide_shift">Toggle First Shift</div>
+			
 
 				<div class="first_shift_container">
 					<legend class="timetable_shift">First Shift:</legend>

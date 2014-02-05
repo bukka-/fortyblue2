@@ -196,7 +196,7 @@
 }
 .events-list {
   position: absolute;
-  bottom: 0;
+  top: 10px;
   left: 0;
   overflow: hidden;
 }
@@ -205,12 +205,25 @@
 }
 .event {
   margin: 3px 5px;
-  max-width: 125px;
+  max-width: 110px;
+  min-width: 110px;
   padding: 4px;
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.more-events {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  cursor: pointer;
+}
+.more-events .caret{
+  border-top-color: white;
+}
+.event.label-success{
+  min-width: 0px;
 }
 .cal-event-list .event.pull-left {
   margin-top: 6px;
@@ -403,7 +416,7 @@ span[data-cal-date]:hover {
   color: #333;
 }
 .events-list {
-  max-height: 37px;
+  max-height: 65px;
   padding-left: 5px;
 }
 .cal-column {

@@ -1,4 +1,25 @@
 	
+	<?
+		$subjects = $subject->getSubjects();
+
+		$filter_subjects = $login->getFilterSubjects($_SESSION['user_id']);
+
+		$filter_subjects = unserialize($filter_subjects[0]->filter_subjects);
+	?>
+	
+	<script>
+	<?
+		if(isset($filter_subjects)){
+			echo 'var filter_subjects = '.json_encode($filter_subjects).'; ';
+		}
+	?>
+
+	</script>
+		<div class="form-group well well-sm">
+				<input id="filter_events" name="filter_events" type="checkbox" checked>
+				<label for="filter_events">Filter events</label>
+		</div>
+
 	<h4 class="current_month"></h2>
 	<div class="btn-group">
 		<button class="btn btn-success" data-calendar-nav="prev">&lt;&lt; Prev</button>
