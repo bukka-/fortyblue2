@@ -42,15 +42,35 @@
 
 			for($i=0; $i<count($subjects); $i++){
 				if($i%4 == 0) echo '<div class="row">';
-				echo '
-				<div class="form-group col-md-3">
-					<div class="input-group">
-						<span class="input-group-addon">
-						<input id="'.$subjects[$i]->subject_id.'" name="check_list[]" value="'.$subjects[$i]->subject_id.'" type="checkbox">
-						</span>
-						<label for="'.$subjects[$i]->subject_id.'" class="form-control">'.$subjects[$i]->subject_name.'</label>
-					</div>
-				</div>';
+				if ($subjects[$i]->subject_id == 42) {
+					
+				}else if($subjects[$i]->subject_id == 17){
+					echo '
+					<div class="form-group col-md-3">
+						<div class="input-group">
+							<label for="'.$subjects[$i]->subject_id.'" class="form-control subject_select">'.$subjects[$i]->subject_name.'</label>
+							<span class="input-group-addon">
+								<input id="'.$subjects[$i]->subject_id.'" name="subject_radio_'.$i.'" value="'.$subjects[$i]->subject_id.'" type="checkbox" checked="checked">
+							</span>
+						</div>
+					</div>';
+				}else{		
+					echo '
+					<div class="form-group col-md-3">
+						<div class="input-group">
+							<label for="'.$subjects[$i]->subject_id.'" class="form-control subject_select">'.$subjects[$i]->subject_name.'</label>
+							<label class="input-group-addon" for="'.$subjects[$i]->subject_id.'s">
+								SL
+								<input id="'.$subjects[$i]->subject_id.'s" name="subject_radio_'.$i.'" value="'.$subjects[$i]->subject_id.'s" type="radio">
+							</label>
+
+							<label class="input-group-addon" for="'.$subjects[$i]->subject_id.'h">
+								HL
+								<input id="'.$subjects[$i]->subject_id.'h" name="subject_radio_'.$i.'" value="'.$subjects[$i]->subject_id.'h" type="radio">
+							</label>
+						</div>
+					</div>';
+				}
 
 				if($i%4 == 3 || $i == count($subjects)-1 ) echo '</div>';
 			}

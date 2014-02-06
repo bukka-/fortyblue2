@@ -72,8 +72,14 @@ class Event
 			$event_type = $db_connection->real_escape_string($_POST['event_type']);
 			$event_url = $db_connection->real_escape_string($_POST['event_url']);
 
-			if($_POST['subject_id']) {
+			if(isset($_POST['subject_id'])) {
 				$subject_id = (int)$_POST['subject_id'];
+			}
+
+			if(isset($_POST['event_calendar'])){
+				$event_calendar = true;
+			}else{
+				$event_calendar = false;
 			}
 
 			if(isset($_POST['event_public'])){
@@ -82,7 +88,8 @@ class Event
 				$event_public = false;
 			}
 
-			$query_new_event_insert = $db_connection->query("INSERT INTO events (id, datetime_start, datetime_end, time_start, time_duration, title, description, type, subject_id, url, public) VALUES('".$event_id."', '".$event_date_start."', '".$event_date_end."', '".$event_time_start."', '".$event_time_duration."', '".$event_title."', '".$event_description."', '".$event_type."', '".$subject_id."', '".$event_url."', '".$event_public."');");
+
+			$query_new_event_insert = $db_connection->query("INSERT INTO events (id, datetime_start, datetime_end, time_start, time_duration, title, description, type, subject_id, url, public, calendar) VALUES('".$event_id."', '".$event_date_start."', '".$event_date_end."', '".$event_time_start."', '".$event_time_duration."', '".$event_title."', '".$event_description."', '".$event_type."', '".$subject_id."', '".$event_url."', '".$event_public."', '".$event_calendar."');");
 
 			if ($query_new_event_insert) {
 				echo "<div class='alert alert-success'>The event has been added.</div>";
@@ -113,8 +120,14 @@ class Event
 			$event_type = $db_connection->real_escape_string($_POST['event_type']);
 			$event_url = $db_connection->real_escape_string($_POST['event_url']);
 
-			if($_POST['subject_id']) {
+			if(isset($_POST['subject_id'])) {
 				$subject_id = (int)$_POST['subject_id'];
+			}
+
+			if(isset($_POST['event_calendar'])){
+				$event_calendar = true;
+			}else{
+				$event_calendar = false;
 			}
 
 			if(isset($_POST['event_public'])){
@@ -123,8 +136,8 @@ class Event
 				$event_public = false;
 			}
 
-			$stmt = $db_connection->prepare("UPDATE events SET datetime_start = ?, datetime_end = ?, time_start = ?, time_duration = ?, title = ?, description = ?, type = ?, subject_id = ?, url = ?, public = ? WHERE id = ? ");
-			$stmt->bind_param('ssssssssssi', $event_date_start, $event_date_end, $event_time_start, $event_time_duration, $event_title, $event_description, $event_type, $subject_id, $event_url, $event_public, $event_id);
+			$stmt = $db_connection->prepare("UPDATE events SET datetime_start = ?, datetime_end = ?, time_start = ?, time_duration = ?, title = ?, description = ?, type = ?, subject_id = ?, url = ?, public = ?, calendar = ? WHERE id = ? ");
+			$stmt->bind_param('sssssssssssi', $event_date_start, $event_date_end, $event_time_start, $event_time_duration, $event_title, $event_description, $event_type, $subject_id, $event_url, $event_public, $event_calendar, $event_id);
 			$stmt->execute();
 
 			if ($db_connection->affected_rows > 0) {

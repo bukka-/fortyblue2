@@ -6,6 +6,10 @@
 		<script src="/dev/main.js"></script>
 		<script src="/vendor/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+
+		<meta name=viewport content="width=device-width, initial-scale=1">
+		<meta name="Description" CONTENT="A dynamic timetable for students.">
+		<meta type="keywords" content="sixtylime|timetable|students|calendar|IB" >
 		
 		<link rel="stylesheet" href="/dev/main.css">
 

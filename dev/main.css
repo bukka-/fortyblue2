@@ -1602,8 +1602,17 @@ td.break{
 	background-color: #5cb85c;
 }
 
+.input-group-addon:not(:first-child):not(:last-child) {
+	border-left: 0px;
+}
+
+.subject_select{
+	height: 55px;
+}
+
 footer {
 	margin: 20px 0px;
+	clear: both;
 }
 
 

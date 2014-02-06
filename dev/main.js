@@ -4196,7 +4196,7 @@ $(document).ready(function(){
 						subject_id = subject_ids[k];
 						if(subject_ids[k].indexOf("x") != -1){
 							subject_id = subject_ids[k].slice(0, - 1);
-							hl_sl = "SL HL";
+							hl_sl = "SL-HL";
 						}else if(subject_ids[k].indexOf("h") != -1 ){
 							subject_id = subject_ids[k].slice(0, - 1);
 							hl_sl = "HL";
@@ -4214,14 +4214,20 @@ $(document).ready(function(){
 
 
 						subject_button = "<span "+lunch+" >"+subject_name_short+" "+hl_sl+"</span>";
-
 						if(filter == true){
-							if (filter_subjects.indexOf(subject_id) > -1 || subject_id == 42){
-								$('.timetable_container tr:nth-child('+i+') td:nth-child('+c+')>div').append(subject_button);
-							}else{
-
+							if(hl_sl == "" || hl_sl == "SL-HL"){
+								if (filter_subjects.indexOf(subject_id+"h") > -1 || filter_subjects.indexOf(subject_id+"s") > -1 || filter_subjects.indexOf(subject_id) > -1 || subject_id == 42){
+									$('.timetable_container tr:nth-child('+i+') td:nth-child('+c+')>div').append(subject_button);
+								}
+							}else if(hl_sl == "SL"){
+								if (filter_subjects.indexOf(subject_id+"s") > -1 || subject_id == 42){
+									$('.timetable_container tr:nth-child('+i+') td:nth-child('+c+')>div').append(subject_button);
+								}
+							}else if(hl_sl == "HL"){
+								if (filter_subjects.indexOf(subject_id+"h") > -1 || subject_id == 42){
+									$('.timetable_container tr:nth-child('+i+') td:nth-child('+c+')>div').append(subject_button);
+								}
 							}
-
 						}else{
 							$('.timetable_container tr:nth-child('+i+') td:nth-child('+c+')>div').append(subject_button);
 						}
@@ -4276,7 +4282,7 @@ $(document).ready(function(){
 				fillTimetable(second_shift_timetable, 'second', filter_check);
 			}
 			setTimeout(function () {timetableInit();}, 50); 
-			 // console.log(week_number, week_number % 2, shift_start);
+			// console.log(week_number, week_number % 2, shift_start);
 		}
 	}
 
@@ -4318,6 +4324,74 @@ $(document).ready(function(){
 	if(filter != "filter"){
 		$('#filter_subjects:checkbox').click();
 	}
+
+	// Timetable Events
+
+	function initTimetableEvents(){
+
+		var events = {};
+
+
+		$.ajax({ 
+			url:"/feed/CalendarEvents.php",
+			data: {getevents: true, from: '1970-01-02', to: '2015-02-02'},
+			type: 'post',
+			success: function(output) {
+				events = JSON.parse(output);
+
+				$.each(events, function(index, value) { 
+					if (events[index].public == true) {
+						events[index].start = new Date(events[index].datetime_start);
+						events[index].end = new Date(events[index].datetime_end);
+					}else{
+						events[index] = '';
+					}
+				});
+
+
+				insertTimetableEvents();
+			}
+		});
+
+		function insertTimetableEvents(){
+
+
+			function getLastMonday(d) {
+				d = new Date(d);
+				var day = d.getDay(),
+					diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+				return new Date(d.setDate(diff));
+			}
+
+			function getNextFriday(date) {
+
+			    var resultDate = new Date(date.getTime());
+
+			    resultDate.setDate(date.getDate() + (7 + 4 - date.getDay()) % 7);
+
+			    return resultDate;
+			}
+
+			$.each(events, function(index, value) {
+				if (events[index].type == "no_classes") {
+					var el_no_classes = "<span class='no_classes'></span>";
+
+					console.log(getNextFriday(new Date()));
+
+					if(new Date(events[index].start) < getLastMonday(new Date().setHours(0,0,0,0))){
+						console.log(new Date(events[index].start));
+						event_start = 1;
+					}
+
+					console.log(getLastMonday(new Date().setHours(0,0,0,0)));
+
+					
+				}
+			});
+		}
+	}
+
+	initTimetableEvents();
 
 	// Grade Table
 
@@ -4450,7 +4524,6 @@ $(document).ready(function(){
 
 		var events = {};
 
-		console.log('filter_subjects', filter_subjects);
 
 		$.ajax({ 
 			url:"/feed/CalendarEvents.php",
@@ -4460,20 +4533,23 @@ $(document).ready(function(){
 				events = JSON.parse(output);
 
 				$.each(events, function(index, value) { 
-					if (events[index].public == true) {
-						events[index].start = new Date(events[index].datetime_start)/ 1000 + '000';
-						events[index].end = new Date(events[index].datetime_end)/ 1000 + '000';
-					};
-					events[index].time_start = events[index].time_start.substring(0, events[index].time_start.length - 3)
-					if (filter == true){
-						console.log(filter_events, events[index].subject_id);
-						if (filter_subjects.indexOf(events[index].subject_id) > -1){
-						}else{
-							console.log(events[index].title);
-							events[index] = '';
+					if(events[index].calendar == false){
+						events[index] = '';
+					}else{
+						if (events[index].public == true) {
+							events[index].start = new Date(events[index].datetime_start)/ 1000 + '000';
+							events[index].end = new Date(events[index].datetime_end)/ 1000 + '000';
+						};
+						events[index].time_start = events[index].time_start.substring(0, events[index].time_start.length - 3)
+						if (filter == true){
+							if (filter_subjects.indexOf(parseInt(events[index].subject_id)) > -1){
+							}else{
+								events[index] = '';
 
+							}
 						}
 					}
+
 				});
 
 				initCalendar();
@@ -4482,8 +4558,6 @@ $(document).ready(function(){
 
 		
 			function initCalendar(){
-
-				console.log(events);
 
 				var options = {
 					events_source: function(){

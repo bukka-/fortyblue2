@@ -4,16 +4,20 @@
 
 		$filter_subjects = $login->getFilterSubjects($_SESSION['user_id']);
 
-		$filter_subjects = unserialize($filter_subjects[0]->filter_subjects);
+		if(isset($filter_subjects[0]->filter_subjects)){
+			$filter_subjects = array_map('intval', explode(';', $filter_subjects[0]->filter_subjects));
+		}
 	?>
 	
 	<script>
 	<?
 		if(isset($filter_subjects)){
 			echo 'var filter_subjects = '.json_encode($filter_subjects).'; ';
+
 		}
 	?>
 
+	console.log(filter_subjects);
 	</script>
 		<div class="form-group well well-sm">
 				<input id="filter_events" name="filter_events" type="checkbox" checked>

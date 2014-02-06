@@ -2,7 +2,9 @@
 
 	$filter_subjects = $login->getFilterSubjects($_SESSION['user_id']);
 
-	$filter_subjects = unserialize($filter_subjects[0]->filter_subjects);
+	if(isset($filter_subjects[0]->filter_subjects)){
+		$filter_subjects = array_map('intval', explode(';', $filter_subjects[0]->filter_subjects));
+	}
 
 	$subjects = $subject->getSubjects();
 

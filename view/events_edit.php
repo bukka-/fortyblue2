@@ -84,6 +84,10 @@ if(isset($event_new)){
 		<input id="event_url" class="login_input form-control" value="<? echo $events[$prev_event_id]->url; ?>" type="text" name="event_url" />
 	</div>
 	<div class="form-group">
+		<input type="checkbox" id="event_calendar" name="event_calendar" value="1" <? if($events[$prev_event_id]->calendar) echo 'checked="checked"' ?>/>
+		<label for="event_calendar">Display On Calendar</label>
+	</div>
+	<div class="form-group">
 		<input type="checkbox" id="event_public" name="event_public" value="1" <? if($events[$prev_event_id]->public) echo 'checked="checked"' ?>/>
 		<label for="event_public">Public</label>
 	</div>
@@ -186,6 +190,10 @@ if($events && $event_id >= 0){
 		<div class="form-group">
 			<label for="event_url">Event URL</label>
 			<input id="event_url" class="login_input form-control" value="<? echo $events[$event_id]->url; ?>" type="text" name="event_url" />
+		</div>
+		<div class="form-group">
+			<input type="checkbox" id="event_calendar" name="event_calendar" value="1" <? if($events[$event_id]->calendar) echo 'checked="checked"' ?> />
+			<label for="event_calendar">Display On Calendar</label>
 		</div>
 		<div class="form-group">
 			<input type="checkbox" id="event_public" name="event_public" value="1" <? if($events[$event_id]->public) echo 'checked="checked"' ?> />

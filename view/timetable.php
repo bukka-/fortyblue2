@@ -10,7 +10,7 @@
 
 		$filter_subjects = $login->getFilterSubjects($_SESSION['user_id']);
 
-		$filter_subjects = unserialize($filter_subjects[0]->filter_subjects);
+		$filter_subjects = explode(';', $filter_subjects[0]->filter_subjects);
 ?>
 	
 	<script type="text/javascript">
@@ -94,6 +94,9 @@
 					<!-- Subjects will be inserted here -->
 				</tbody>
 			</table>
+			<div class="timetable_events">
+				
+			</div>
 		</div>
 
 <?
