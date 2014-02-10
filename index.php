@@ -27,6 +27,8 @@ $page = strtolower($URI_parts[1]);
 
 if($page == "home"){
 	controller_home();
+}else if($page == "faq"){	
+	controller_faq();
 }else if($page == "register"){
 	controller_register();
 }else if($page == "user" && strtolower($URI_parts[2])!=""){
@@ -97,6 +99,13 @@ function controller_home(){
 	global $login;
 	include('./view/header.php');
 	include('./view/home.php');
+}
+
+
+function controller_faq(){
+	global $login;
+	include('./view/header.php');
+	include('./view/faq.php');
 }
 
 
@@ -286,6 +295,17 @@ function controller_subject_edit($subject_edit_id){
 	}else{
 		echo '<span class="alert alert-danger">Sorry, you do not have permission to access this area.</span>';
 	}
+}
+
+
+function controller_events(){
+	global $login;
+	include('./view/header.php');
+
+	include('./model/Event.php');
+	$event = new Event($login);
+
+	include('./view/events.php');
 }
 
 

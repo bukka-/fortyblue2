@@ -15,15 +15,35 @@
 
 
 		<link rel="shortcut icon" href="/favicon.ico" />
+
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-21048440-3', 'sixtylime.com');
+			ga('send', 'pageview');
+
+		</script>
 	</head>
 
 	<body>
 
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container">
+
 				<div class="navbar-header">
 					<a class="nav-logo" href="/">Brand</a>
 				</div>
+
+
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 
 				<div class="btn-group nav-dropdown">
 					<button type="button" class="btn btn-default dropdown-toggle dropdown-timetable" data-toggle="dropdown">
@@ -62,24 +82,56 @@
 						?>
 					</ul>
 				</div>
-				<a href="/calendar" title="Calendar">
-					<div class="btn btn-default calendar-button">
-						<span class="glyphicon glyphicon-calendar"></span>
+
+
+
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+					<a href="/calendar" title="Calendar">
+						<div class="btn btn-default calendar-button">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</div>
+					</a>
+
+					<div class="navbar-text pull-right user_nav">
+						<?
+						if ($login->isUserLoggedIn() == true) {
+
+							
+
+
+						?>
+
+
+							Hi <a href="/user/<? echo $_SESSION['user_name'];?>"><? echo $_SESSION['user_name'];?></a>! <? if(isset($_SESSION['user_group']) == "admin") echo'<a class="btn btn-success" href="/panel">Panel</a>'; ?> 
+							<div class="dropdown notification-dropdown">
+								<div class="btn btn-default" id="dropdownMenu1" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> <span class="caret"></span></div>
+							   
+									<ul class="dropdown-menu dropdown-menu-right pull-right" role="menu" aria-labelledby="dropdownMenu1">
+									<?
+	
+										echo '<li role="presentation" class="dropdown-header">Upcoming Events</li>';
+										echo $login->getNotifications();
+	
+	
+									?>
+	
+									<li role="presentation" class="divider"></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="/events">All Events</a></li>
+								</ul>
+							</div>
+
+							<a class="btn btn-default" href="/new_login.php?logout">Logout</a>
+						<?
+						} else{
+						?>
+							Hello Guest! <a href="#" id="log-in" class="navbar-link">Log In</a> or <a href="/register" class="btn btn-success">Register</a>
+						<?
+						}
+						?>
 					</div>
-				</a>
-			<p class="navbar-text pull-right user_nav">
-				<?
-				if ($login->isUserLoggedIn() == true) {
-				?>
-					Hi <a href="/user/<? echo $_SESSION['user_name'];?>"><? echo $_SESSION['user_name'];?></a>! <? if(isset($_SESSION['user_group']) == "admin") echo'<a class="btn btn-success" href="/panel">Panel</a>'; ?> <a class="btn btn-default" href="/new_login.php?logout">Logout</a>
-				<?
-				} else{
-				?>
-					Hello Guest! <a href="#" id="log-in" class="navbar-link">Log In</a> or <a href="/register" class="btn btn-success">Register</a>
-				<?
-				}
-				?>
-			</p>
+
+				</div>
 			</div>
 		</nav>
 

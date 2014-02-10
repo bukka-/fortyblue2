@@ -304,6 +304,105 @@ class Login
 	public function isUserLoggedIn()
 	{
 		return $this->user_is_logged_in;
-	}	
+	}
+
+
+
+	public function getEvents() {
+		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+		if (!$this->db_connection->connect_errno) {
+			$getSubjects = "";
+
+				if (mysqli_connect_errno()) {
+				  return '<div class="alert alert-danger">Database connection problem.</div>';
+				  exit;
+				}
+				$query = "SELECT * FROM events";
+				$result = $this->db_connection->query($query);
+
+
+				if ($result->num_rows < 1) {
+				  return false;
+				}     
+
+				$rows = array();
+				while($row = $result->fetch_object())
+				{
+				    $rows[] = $row;
+				}
+
+				return $rows;
+
+
+		}else{
+				return '<div class="alert alert-danger">Database connection problem.</div>';
+		}
+
+	}
+
+
+	public function getNotifications() {
+		$events = $this->getEvents();
+
+		if($events){
+
+			$upcoming_events = '';
+
+			for($i=0; $i<count($events); $i++){
+				$event = $events[$i];
+				if($event->public){
+					$filter_subjects = $this->getFilterSubjects($_SESSION['user_id']);
+
+					if(isset($filter_subjects[0]->filter_subjects)){
+						$filter_subjects = array_map('intval', explode(';', $filter_subjects[0]->filter_subjects));
+					}
+
+					if(in_array($event->subject_id, $filter_subjects)){
+						$event_datetime = strtotime($event->datetime_start.$event->time_start);
+
+						if($event_datetime > strtotime('now') && $event_datetime < strtotime("+3 day")){
+
+							$subject_pair = false;
+
+							$labels = '<span class="label label-success">NEW</span>
+							 ';
+
+							if($event->type == 'mock_exam'){
+								$labels .= '<span class="label label-warning" title="Mock Exam">EXAM</span>';
+							}
+
+
+							$days_until = floor(($event_datetime - strtotime('now'))/60/60/24);
+
+							if($days_until < 1){
+								$days_until = floor(($event_datetime - strtotime('now'))/60/60). ' hours until the event.';
+							}else if($days_until == 1){
+								$days_until = $days_until.' day until the event.';
+							}else{
+								$days_until = $days_until.' days until the event.';
+							}
+
+							$full_date = date_create_from_format('Y-m-d', $event->datetime_start);
+							$full_date = $full_date->format('F jS Y');
+
+							if (isset($event->subject_id)) {
+								if($event->subject_id == $events[$i+1]->subject_id && $event->datetime_start == $events[$i+1]->datetime_start){
+									$upcoming_events .= '<li class="list-group-item">'.$labels.' '.$event->title.' + '.$events[$i+1]->title.' - <span rel="tooltip" title="'.$full_date.'">'.$days_until.'</span></li>';
+									$i++;
+									$subject_pair = true;
+								}
+							}
+							if(!$subject_pair){
+								$upcoming_events .= '<li class="list-group-item">'.$labels.' '.$event->title.' - <span rel="tooltip" title="'.$full_date.'">'.$days_until.'</span></li>';
+							}
+						}
+					}
+				}
+			}
+
+			return $upcoming_events;
+		}
+	}
 
 }

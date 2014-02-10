@@ -70,13 +70,31 @@
 		</div>
 
 		<div class="row">
-			<div class="form-group col-md-3">
-					<input id="filter_subjects" name="filter_subjects" type="checkbox" checked>
-					<label for="filter_subjects">Filter subjects</label>
+			<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Timetable Settings</div>
+							<div class="panel-body">
+
+								<div class="col-sm-2">
+									<input id="filter_subjects" name="filter_subjects" type="checkbox" checked>
+									<label for="filter_subjects">Filter subjects</label>
+								</div>
+
+								<div class="col-sm-2">
+										<input id="filter_timetable_events" name="filter_timetable_events" type="checkbox" checked>
+										<label for="filter_timetable_events">Show Events</label>
+								</div>
+
+								<div class="col-sm-2">
+										<input id="timetable_timeline" name="timetable_timeline" type="checkbox" checked>
+										<label for="timetable_timeline">Show Timeline</label>
+								</div>
+						</div>
+					</div>
 			</div>
 		</div>
 
-		<div class="timetable_container filtered">
+		<div class="timetable_container filtered table-responsive">
 			<table class="table table-bordered table-hover timetable">
 				<thead>
 					<tr>

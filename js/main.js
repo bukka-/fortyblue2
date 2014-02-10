@@ -1,6 +1,10 @@
 $(document).ready(function(){
 
-	$("[rel=tooltip]").tooltip({ placement: 'right'});
+	function initTooltip() {
+		$("[rel=tooltip]").tooltip({ placement: 'right'});
+	}
+
+	initTooltip();
 
 
 	function timetableInit(){
@@ -536,32 +540,6 @@ $(document).ready(function(){
 		}
 	});
 
-	// Filter Subjects
-
-	var filter = JSON.parse(localStorage.getItem( 'filter' ));
-
-
-
-	$('#filter_subjects:checkbox').click(function() {
-		clearTable();
-	    if (this.checked) {
-	    	printTimetableByShift(true)
-	    	$('.timetable_container').addClass('filtered');
-
-			filter = "filter";
-			localStorage.setItem( 'filter', JSON.stringify(filter) );
-	    }else{
-			printTimetableByShift(false);
-			$('.timetable_container').removeClass('filtered');
-			filter = "";
-			localStorage.setItem( 'filter', JSON.stringify(filter) );
-
-	    }
-	});
-
-	if(filter != "filter"){
-		$('#filter_subjects:checkbox').click();
-	}
 
 	// Timetable Events
 
@@ -593,7 +571,6 @@ $(document).ready(function(){
 
 		function insertTimetableEvents(){
 
-
 			function getLastMonday(d) {
 				d = new Date(d);
 				var day = d.getDay(),
@@ -603,33 +580,170 @@ $(document).ready(function(){
 
 			function getNextFriday(date) {
 
+			    date = new Date(date);
 			    var resultDate = new Date(date.getTime());
-
-			    resultDate.setDate(date.getDate() + (7 + 4 - date.getDay()) % 7);
+			    resultDate.setDate(date.getDate() + (7 + 5 - date.getDay()) % 7);
 
 			    return resultDate;
 			}
 
 			$.each(events, function(index, value) {
 				if (events[index].type == "no_classes") {
-					var el_no_classes = "<span class='no_classes'></span>";
 
-					console.log(getNextFriday(new Date()));
+					var date_event_start = new Date(events[index].start);
+					var date_event_end   = new Date(events[index].end);
+					var today_midnight   = new Date().setHours(2,0,0,0);
 
-					if(new Date(events[index].start) < getLastMonday(new Date().setHours(0,0,0,0))){
-						console.log(new Date(events[index].start));
-						event_start = 1;
+					if(date_event_end < getLastMonday(today_midnight)){
+						event_end = 0;
+						return false;
+					}else if(date_event_start < getNextFriday(today_midnight)){
+						event_end = 5;
+					}else if(date_event_end < getNextFriday(today_midnight)){
+						event_end = ((date_event_end.getDay() + 6) %7) + 1;
 					}
 
-					console.log(getLastMonday(new Date().setHours(0,0,0,0)));
+					if(date_event_start > getNextFriday(today_midnight)){
+						event_start = 0;
+						return false;
+					}else if(date_event_start < getLastMonday(today_midnight)){
+						event_start = 1;
+					}else{
+						event_start = ((date_event_start.getDay() + 6) %7) + 1;
+					}
 
+					console.log(event_start, event_end);
+					console.log('=-=-=-=-=-=-=-=-=-=-=-=');
+
+
+					if(event_start > 0 && event_end > 0){
+						var el_no_classes = $("<span class='no_classes'><span class='text_info'>"+events[index].description+"<span id='hide_timetable_events' class='glyphicon glyphicon-remove pull-right' rel='tooltip' title='Close'></span></span></span>");
+
+						el_no_classes.appendTo('.timetable_events');
+
+						timetable_row = $('table.timetable tbody tr:nth-child(3) td');
+
+						var height = $('table.timetable tbody').height();
+
+						var width = 0;
+						var left = 0;
+
+						timetable_row.slice(event_start, event_end+1).each(function() {
+							width += $(this).outerWidth( true );
+						});
+
+						timetable_row.slice(0 ,event_start).each(function() {
+							left += $(this).outerWidth( true );
+						});
+
+						var top = '0px';
+
+
+						el_no_classes.css({
+							'height': height,
+							'width': width,
+							'left': left,
+							'top': top
+						});
+
+						$('table.timetable').css('marginBottom', '50px');
+
+					}
 					
 				}
 			});
+
+			initTooltip();
 		}
 	}
 
-	initTimetableEvents();
+	function clearTimetableEvents() {
+		$('.timetable_events').html('');
+	}
+
+	// Filter Timetale Events
+
+	var filter_timetable_events = JSON.parse(localStorage.getItem( 'filter_timetable_events' ));
+
+	$('#filter_timetable_events:checkbox').click(function() {
+	    if (this.checked) {
+	    	initTimetableEvents();
+			filter_timetable_events = true;
+			localStorage.setItem( 'filter_timetable_events', JSON.stringify(filter_timetable_events) );
+	    }else{
+	    	clearTimetableEvents();
+			filter_timetable_events = false;
+			localStorage.setItem( 'filter_timetable_events', JSON.stringify(filter_timetable_events) );
+
+	    }
+	});
+
+	if(!filter_timetable_events){
+		$('#filter_timetable_events:checkbox').click();
+	}else{
+		initTimetableEvents();
+	}
+
+	$(document).on('click', "#hide_timetable_events", function() {
+		$('#filter_timetable_events:checkbox').click();
+	});
+
+	// Filter Timelines
+
+	var timetable_timeline = JSON.parse(localStorage.getItem( 'timetable_timeline' ));
+
+	$('#timetable_timeline:checkbox').click(function() {
+		if (this.checked) {
+			$('.timeline-fill').show();
+			$('.timeline').show();
+			timetable_timeline = true;
+			localStorage.setItem( 'timetable_timeline', JSON.stringify(timetable_timeline) );
+		}else{
+			$('.timeline-fill').hide();
+			$('.timeline').hide();
+			timetable_timeline = false;
+			localStorage.setItem( 'timetable_timeline', JSON.stringify(timetable_timeline) );
+		}
+	});
+
+	if(!timetable_timeline){
+		$('#timetable_timeline:checkbox').click();
+	}
+
+	// Filter Subjects
+
+	var filter = JSON.parse(localStorage.getItem( 'filter' ));
+
+	$('#filter_subjects:checkbox').click(function() {
+		clearTable();
+		clearTimetableEvents();
+	    if (this.checked) {
+	    	printTimetableByShift(true)
+	    	$('.timetable_container').addClass('filtered');
+
+			filter = "filter";
+			localStorage.setItem( 'filter', JSON.stringify(filter) );
+	    }else{
+			printTimetableByShift(false);
+			$('.timetable_container').removeClass('filtered');
+			filter = "";
+			localStorage.setItem( 'filter', JSON.stringify(filter) );
+
+	    }
+	    if(filter_timetable_events){
+	    	initTimetableEvents();
+		}
+	});
+
+	if(filter != "filter"){
+		$('#filter_subjects:checkbox').click();
+	}
+
+	// Time Until Next Lesson
+
+
+
+	
 
 	// Grade Table
 
@@ -779,7 +893,7 @@ $(document).ready(function(){
 							events[index].end = new Date(events[index].datetime_end)/ 1000 + '000';
 						};
 						events[index].time_start = events[index].time_start.substring(0, events[index].time_start.length - 3)
-						if (filter == true){
+						if (filter == true && typeof filter_subjects != 'undefined'){
 							if (filter_subjects.indexOf(parseInt(events[index].subject_id)) > -1){
 							}else{
 								events[index] = '';
@@ -895,5 +1009,7 @@ $(document).ready(function(){
 			var val = $(this).is(':checked') ? $(this).val() : null;
 			calendar.setOptions({modal: val});
 		});
+
+
 
 });
