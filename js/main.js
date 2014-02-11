@@ -29,7 +29,7 @@ $(document).ready(function(){
 		current_time_minutes = calculateTimeMinutes(time);
 
 
-		table_height = $('table.timetable tbody').height();
+		table_height = $('table.timetable.original tbody').height();
 
 		timeline_fill = (((current_time_minutes-time_start_minutes)*100)/(time_end_minutes-time_start_minutes));
 
@@ -621,15 +621,15 @@ $(document).ready(function(){
 
 						el_no_classes.appendTo('.timetable_events');
 
-						timetable_row = $('table.timetable tbody tr:nth-child(3) td');
+						timetable_row = $('table.timetable.original tbody tr:nth-child(3) td');
 
-						var height = $('table.timetable tbody').height();
+						var height = $('table.timetable.original tbody').height();
 
 						var width = 0;
 						var left = 0;
 
 						timetable_row.slice(event_start, event_end+1).each(function() {
-							width += $(this).outerWidth( true );
+							width += $(this).outerWidth(true);
 						});
 
 						timetable_row.slice(0 ,event_start).each(function() {
@@ -694,13 +694,13 @@ $(document).ready(function(){
 
 	$('#timetable_timeline:checkbox').click(function() {
 		if (this.checked) {
-			$('.timeline-fill').show();
-			$('.timeline').show();
+			$('.timeline-fill').css('opacity', '1');
+			$('.timeline').css('opacity', '1');
 			timetable_timeline = true;
 			localStorage.setItem( 'timetable_timeline', JSON.stringify(timetable_timeline) );
 		}else{
-			$('.timeline-fill').hide();
-			$('.timeline').hide();
+			$('.timeline-fill').css('opacity', '0');
+			$('.timeline').css('opacity', '0');
 			timetable_timeline = false;
 			localStorage.setItem( 'timetable_timeline', JSON.stringify(timetable_timeline) );
 		}
@@ -730,6 +730,7 @@ $(document).ready(function(){
 			localStorage.setItem( 'filter', JSON.stringify(filter) );
 
 	    }
+	    responsiveTimetable()
 	    if(filter_timetable_events){
 	    	initTimetableEvents();
 		}
@@ -742,9 +743,26 @@ $(document).ready(function(){
 	// Time Until Next Lesson
 
 
-
+	// Fixed time column
 	
+	function responsiveTimetable(){
+	    var $table = $('.table.original');
+	    //Make a clone of our table
+		if($('.fixed-column').length > 0){
+	   		$('.fixed-column').remove();
+		}
+	   	var $fixedColumn = $table.clone().insertBefore($('.timetable_container')).addClass('fixed-column').removeClass('original');
 
+	    //Remove everything except for first column
+	    $fixedColumn.find('.timeline').remove();
+	    $fixedColumn.find('.timeline-fill').remove();
+	    $fixedColumn.find('thead').css('opacity', '1');
+	    $fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
+		$fixedColumn.width($table.find('.time').outerWidth()).find('.time').css('fontSize', '12px');
+
+	};
+
+	responsiveTimetable()
 	// Grade Table
 
 	$('#add_grade').click(function() {

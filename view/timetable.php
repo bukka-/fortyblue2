@@ -93,27 +93,28 @@
 					</div>
 			</div>
 		</div>
-
-		<div class="timetable_container filtered table-responsive">
-			<table class="table table-bordered table-hover timetable">
-				<thead>
-					<tr>
-						<th>Time</th>
-						<th>Monday</th>
-						<th>Tuesday</th>
-						<th>Wednesday</th>
-						<th>Thrusday</th>
-						<th>Friday</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="timeline-fill"></tr>
-					<tr class="timeline"></tr>
-					<!-- Subjects will be inserted here -->
-				</tbody>
-			</table>
-			<div class="timetable_events">
-				
+		<div class="timetable_wrapper">
+			<div class="timetable_container filtered">
+				<table class="table table-bordered table-hover timetable original">
+					<thead>
+						<tr>
+							<th>Time</th>
+							<th>Monday</th>
+							<th>Tuesday</th>
+							<th>Wednesday</th>
+							<th>Thrusday</th>
+							<th>Friday</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="timeline-fill"></tr>
+						<tr class="timeline"></tr>
+						<!-- Subjects will be inserted here -->
+					</tbody>
+				</table>
+				<div class="timetable_events">
+					
+				</div>
 			</div>
 		</div>
 
